@@ -1,0 +1,170 @@
+.single-product-container{
+    border-radius: 6px;
+    width: 300px;
+    height: 375px;
+    background-color: rgb(218, 216, 216);
+    position: relative;
+}
+
+.single-product-container .single-image{
+    width: 300px;
+    height: 200px;
+    
+}
+
+.single-image img{
+    object-fit: cover;
+    border-radius: 6px;
+    width: 99%;
+    height: 100%;
+}
+.product-info{
+    padding: 0px 30px;
+}
+
+.title-price{
+    display: flex;
+    justify-content: space-between;
+    padding:20px 0px;
+}
+
+.title-price .title{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.title-price .price, .categroy{
+    color: orangered;
+}
+
+.product-info .description{
+    padding: 5px 0;
+    color: rgb(95, 94, 94);
+}
+
+.single-product-container .product-info button{
+    position:absolute;
+    bottom: 5px;
+    left:100px;
+    width: 90px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(97, 28, 3);
+    color: white;
+}
+/* productlist */
+.productlist-container{
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:25px;
+    padding:20px 0px;
+}
+
+
+/* product detail component */
+
+.detail-item .detail-fooditem{
+   
+    display: flex;
+    justify-content: space-between;
+    margin:50px 80px;
+
+}
+.detail-fooditem .detail-image{
+    width: 45%;
+}
+
+.detail-fooditem .detail-image img{
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.detail-fooditem .detail-desc{
+    width: 45%;
+    padding: 20px 0;
+     
+}
+
+.detail-fooditem .detail-desc .title {
+    font-size: 35px;
+    font-weight: 600;
+    
+}
+
+.detail-fooditem .detail-desc .description {
+    padding: 10px 0;
+    color: rgb(95, 94, 94);
+    font-size: 20px;
+}
+
+.detail-fooditem .detail-desc .category{
+    font-size: 20px;
+    color:orangered
+}
+
+.detail-fooditem .detail-desc .price{
+    padding: 10px 0;
+    color: orangered;
+}
+
+.detail-fooditem .detail-desc button {
+   
+    width: 90px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(97, 28, 3);
+    color: white;
+    
+}
+
+
+
+
+/* cartitems */
+
+.cart-item-component{
+  
+    display: flex;
+    margin: 20px 50px;
+}
+
+.cart-item-component .cartimage {
+    width:300px;
+    height: 200px;
+}
+.cart-item-component .cartimage  img{
+    object-fit: cover;
+}
+.cart-item-component .cart-item-detail .title {
+    font-size: 20px;
+    font-weight: 600;
+    
+}
+
+.cart-item-component .cart-item-detail .description{
+    padding: 10px 0;
+    color: rgb(95, 94, 94);
+    font-size: 18px;
+}
+
+.cart-item-component .cart-item-detail .price, .quantity{
+    padding: 10px 0;
+    color: orangered;
+}
+
+.cart-item-component .cart-item-detail button{
+    width: 90px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: red;
+    color: white;
+}
+
+

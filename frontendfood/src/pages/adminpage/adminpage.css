@@ -1,0 +1,102 @@
+.adminpanel-container{
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
+}
+
+
+.adminpanel-container .admin{
+    text-align: center;
+    width: 300px;
+    cursor: pointer;
+
+}
+
+.adminpanel-container .admin img{
+    width: 100%;
+}
+
+
+
+
+.admin-user-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:flex-start;
+    gap: 20px;
+    padding: 20px 40px;
+}
+
+
+
+
+
+.admin-singleuser{
+    border-radius: 6px;
+    width: 300px;
+    height: 375px;
+    background-color: rgb(218, 216, 216);
+    position: relative;
+}
+
+.admin-singleuser .user-image-profile{
+    width: 300px;
+    height: 200px;
+}
+
+
+.admin-singleuser .user-image-profile  img{
+    object-fit: cover;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-singleuser p{
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+.admin-addFooditem-container{
+
+    padding-top: 50px;
+    height: 100vh;
+    width: 30%;
+    margin: auto;
+}
+
+
+.admin-addFooditem-container h1{
+    padding: 20px 0;
+}
+
+.admin-addFooditem-container .admin-food-form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.admin-addFooditem-container .admin-food-form input{
+    width: 400px;
+    height: 30px;
+}
+
+.admin-addFooditem-container .admin-food-form button{
+    width: 90px;
+    height: 30px;
+    cursor: pointer;
+    border:none;
+    border-radius: 6px;
+    background-color: blue;
+    color: white;
+}
