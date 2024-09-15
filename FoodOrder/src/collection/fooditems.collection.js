@@ -101,6 +101,10 @@ const gettimeFooditem = AsyncHandler(async(req, res)=>{
 
 
 const getFoodItems = AsyncHandler(async(req, res)=>{
+    // const user = req.user
+    // if(!user){
+    //     throw new ApiError(400, "user not found")
+    // }
 
     const {id} = req.body
 

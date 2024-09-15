@@ -5,11 +5,13 @@ import ProductList from '../../components/product/ProductList'
 import UserContainer from '../../components/containers/UserContainer'
 import { specialFoodItems } from '../../actions/fooditemAction'
 import './home.css'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
   // const [fooditem, setfooditem] = useState(null)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const getfooditem = useSelector((state)=> state.fooditems)
   const getuserinfo = useSelector((state)=> state.userLogin)
@@ -23,6 +25,10 @@ const Home = () => {
     specialfooditem = specialitem.items
   }
 
+
+  if(!userInfo){
+    navigate('/login')
+  }
 
   console.log("specialfooditem", specialfooditem)
   console.log("fod", fooditem)

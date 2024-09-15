@@ -4,15 +4,23 @@ import { useSelector,useDispatch } from 'react-redux'
 import { allFooditems } from '../../actions/fooditemAction'
 import ProductList from '../../components/product/ProductList'
 import { getAllCategory } from '../../actions/fooditemAction'
+import { useNavigate } from 'react-router-dom'
 
 
 const Products = () => {
+    const navigate = useNavigate()
     const [categoryid, setcategoryid] = useState("")
     const dispatch = useDispatch()
     const getfooditem = useSelector((state)=> state.fooditems)
     const {fooditem, loading, error } = getfooditem
 
+    const {userInfo} = useSelector((state)=> state.userLogin)
+
     const {category} = useSelector((state)=> state.getallcategory)
+
+    if(!userInfo){
+        navigate('/login')
+    }
     
 
     useEffect(()=>{

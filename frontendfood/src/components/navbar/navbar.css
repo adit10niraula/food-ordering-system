@@ -8,6 +8,11 @@
 .nav-container p{
     font-size: 25px;
 }
+.homelink{
+    text-decoration: none;
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
 .nav-container ul{
     display: flex;
     gap:20px;

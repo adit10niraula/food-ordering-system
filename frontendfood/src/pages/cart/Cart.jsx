@@ -11,9 +11,13 @@ const Cart = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const allcartitems = useSelector((state)=> state.getCartItems)
+    const {userInfo} = useSelector((state)=> state.userLogin)
     const {cartitems, loading, error} = allcartitems
     console.log("cartiems", cartitems)
     
+    if(!userInfo){
+        navigate('/login')
+    }
 
     useEffect(()=>{
         dispatch(getCartItem())

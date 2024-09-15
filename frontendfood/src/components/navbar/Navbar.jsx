@@ -17,7 +17,7 @@ const Navbar = () => {
     }
   return (
     <div className='nav-container'>
-        <p>khana Ghar</p>
+        <p> <Link className='homelink' to="/">khana Ghar</Link></p>
 
         <ul>
             <Link className='link' to="/">home</Link>

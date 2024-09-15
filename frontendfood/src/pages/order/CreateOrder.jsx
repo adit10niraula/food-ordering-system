@@ -12,6 +12,15 @@ const CreateOrder = () => {
     const queryParams = new URLSearchParams(location.search)
     const data = queryParams.get('data');
 
+    const {userInfo} = useSelector((state)=> state.userLogin)
+
+   
+
+    if(!userInfo){
+        navigate('/login')
+    }
+    
+
 
     console.log("orderdata", orderData)
 

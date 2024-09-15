@@ -19,6 +19,15 @@ const Order = () => {
   console.log(totalprice)
   const signature = paymentdetail?.signature
   const uuid = paymentdetail?.uuid
+
+  const {userInfo} = useSelector((state)=> state.userLogin)
+
+  
+
+    if(!userInfo){
+        navigate('/login')
+    }
+    
  
 
   
