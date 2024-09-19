@@ -2,7 +2,7 @@ import React from 'react'
 import './singleproduct.css'
 import { useSelector } from 'react-redux'
 
-const SingleProduct = ({item, handleDetail}) => {
+const SingleProduct = ({item, handleDetail,handleAddToCart}) => {
 
 
   
@@ -22,8 +22,11 @@ const SingleProduct = ({item, handleDetail}) => {
             <p className='categroy'>{item?.category?.name}</p>
             <p className='description'>{item?.description}</p>
 
-            
+           
+            </div>
+            <div className='single-product-btnhandle'>
             <button onClick={()=>handleDetail(item?._id)}>detail</button>
+            <button onClick={()=>handleAddToCart(item?._id)}>Add to Cart</button>
             </div>
         </div>
       

@@ -229,9 +229,9 @@ const createOrder = AsyncHandler(async (req, res) => {
 const getAdminOrder = AsyncHandler(async (req, res) => {
   const user = req.user;
  
-  if (!user) {
-    throw new ApiError(400, "admin must be logged in to contiue");
-  }
+  // if (!user) {
+  //   throw new ApiError(400, "admin must be logged in to contiue");
+  // }
 
   // let orders
   // try {

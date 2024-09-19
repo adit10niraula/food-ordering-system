@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminContainer from '../../components/containers/AdminContainer';
 import { adminlogin } from '../../actions/adminAction';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../login/login.css'
 
@@ -25,8 +25,9 @@ const Adminlogin = () => {
 
   return (
     <AdminContainer>
+      <div className='userloginreg-cont' >
       <div className='userlog-container'>
-        {error && <p>{error}</p>}
+       
         <div className="admin-login-form">
           <h1>Admin Login</h1>
           <form onSubmit={handleAdminLogin}>
@@ -49,8 +50,17 @@ const Adminlogin = () => {
               onChange={(e) => setpassword(e.target.value)}
             />
             <button type="submit">Login</button>
+            <p>if you are user click here <Link to="/login">user</Link></p>
           </form>
+
+
+          <div className="errors">
+        {loading && <p>loading ...</p>}
+        {error && <p>{error}</p>}
+       
         </div>
+        </div>
+      </div>
       </div>
     </AdminContainer>
   );

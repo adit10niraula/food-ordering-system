@@ -28,6 +28,7 @@ const AdminUserManage = () => {
 
   return (
     <AdminContainer>
+      <h1>Users</h1>
     <div className='admin-user-container'>
       {UserData && UserData.map((user)=>{
         return <div key={user._id} className='admin-singleuser'>

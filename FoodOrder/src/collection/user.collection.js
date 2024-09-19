@@ -38,6 +38,30 @@ const registerUser = AsyncHandler(async(req, res)=>{
         throw new ApiError(400, "all fields are required")
     }
 
+    if(name.length < 3 || address.length < 3){
+        throw new ApiError(400, "field should be atleast 4 character")
+    }
+    const nameRegex = /^[A-Za-z\s]+$/;
+
+    if (!nameRegex.test(name) || !nameRegex.test(address)) {
+        throw new ApiError(400, "fields should contain only letters");
+    }
+
+    if(password.length < 6){
+        throw new ApiError(400, "password length should be more than 6 character")
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        throw new ApiError(400, "Invalid email format");
+    }
+
+    const phoneRegex = /^(98|97)\d{8}$/;
+
+    if (!phoneRegex.test(contact)) {
+        throw new ApiError(400, "Phone number must start with 98 or 97 and contain exactly 10 digits");
+    }
+
     
     const profilelocal = req.file?.path
     if(!profilelocal){

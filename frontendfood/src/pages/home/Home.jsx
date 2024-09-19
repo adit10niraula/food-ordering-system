@@ -6,6 +6,7 @@ import UserContainer from '../../components/containers/UserContainer'
 import { specialFoodItems } from '../../actions/fooditemAction'
 import './home.css'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -44,7 +45,11 @@ const Home = () => {
       
         
         <div className="food-cover-image">
-          <img src="/foodburger.jpeg" alt=""  style={{width: "100%", height:"90vh", objectFit:"cover"}}/>
+          <img src="/foodbug.png" alt=""  style={{width: "60%", height:"90vh", objectFit:"cover"}}/>
+          <div className="food-cover-desc">
+          We provide you with healthy food items at convenient prices <br />
+          <button> <Link className='link' to="/product">shop now</Link></button>
+          </div>
         </div>
 
         <h1>Today special !!</h1>

@@ -3,7 +3,7 @@ import { userRegisterReducer, userLoginReducer } from "../reducers/userReducers"
 import { fooditemsReducers, fooditemDetailReducer, similarFooditemReducer,specialFoodItemsReducer, getallcategoryreducer } from "../reducers/fooditemReducers";
 import { addToCartReducer, getCartItemsReducer, addOrderPaymentReducer, createorderReducer } from "../reducers/cartReducers";
 import { adminLoginReducer, adminfooditemreducer, adminFoodItemDetailReducer,
-    FoodItemDetailDeleteReducer, adminaddfooditemReducer, DisplayUserReducer,editfooditemsReducer
+    FoodItemDetailDeleteReducer, adminaddfooditemReducer, DisplayUserReducer,editfooditemsReducer, adminorderReducer
  } from "../reducers/adminReducer";
 
 
@@ -29,7 +29,8 @@ const rootReducer = combineReducers({
     FoodItemDetailDelete:FoodItemDetailDeleteReducer,
     adminaddfooditem:adminaddfooditemReducer,
     DisplayUser:DisplayUserReducer,
-    editfooditem:editfooditemsReducer
+    editfooditem:editfooditemsReducer,
+    AdminOrder: adminorderReducer
 
     
 })

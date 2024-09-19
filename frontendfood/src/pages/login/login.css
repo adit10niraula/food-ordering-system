@@ -1,8 +1,47 @@
 .userlog-container{
- 
-    width: 70%;
-    margin: 70px auto;
-    height: 400px;
+    
+    width: 60%;
+   
+    height: 100%;
+    
+    background-color: white;
+    border-radius: 6px;
+    
+}
+.userloginreg-cont{
+    
+    height: 100vh;
+    padding:0;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid rgb(187, 33, 33);
+    
+    
+}
+.userloginreg-cont .userlogregflex{
+    height: 90%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:50px;
+   
+    
+
+}
+
+.login-image-container{
+    height: 100%;
+    width: 50%;
+}
+
+.login-image-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .userlog-container h1 {
@@ -41,3 +80,10 @@
     gap:50px;
    
 }
+
+.errors {
+    padding:20px 200px;
+    color:red;
+    font-size:16px;
+}
+

@@ -14,7 +14,7 @@ router.route('/time').get( gettimeFooditem)
 
 
 router.route('/detail/:id').get(getSingleItem)
-router.route('/show/:id').get(authjwt, showSmilarProducts)
+router.route('/show/:id').get(showSmilarProducts)
 router.route('/update/:id').patch(adminjwt,upload.single('image'), updateFoodItems)
 router.route('/delete/:id').delete(adminjwt, deleteFoodItems)
 

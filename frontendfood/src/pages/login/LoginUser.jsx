@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../actions/userAction'
 import UserContainer from '../../components/containers/UserContainer'
+import { Link } from 'react-router-dom'
 import './login.css'
 
 const LoginUser = () => {
@@ -30,13 +31,27 @@ const LoginUser = () => {
 
     },[userInfo, navigate])
 
+//     style={{ 
+            
+//         background: "linear-gradient(to right, blue, purple)", // Direct access to public folder image
+//   height: "100vh" ,
+//   padding:"0",
+//   margin:"0",
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+ 
+// }} 
+
   return (
     <UserContainer>
-    <div className='userlog-container'>
+        <div className='userloginreg-cont' >
+    <div className='userlogregflex'>
+       
+    <div className='userlog-container'  >
         <h1>login user</h1>
 
-        {loading && <p>loading ...</p>}
-        {error && <p>{error}</p>}
+        
        
         <form  onSubmit={handleLogin} action="" method="post">
           
@@ -47,8 +62,21 @@ const LoginUser = () => {
             <input type="password" name="password" id="password" placeholder='password' onChange={(e)=>setpassword(e.target.value)} />
             
             <button type="submit">login</button>
+            <p>doesnot have account <Link to="/register">sing in</Link></p>
+            <p>are you admin <Link to="/adminlogin">admin login</Link> </p>
         </form>
+
+        <div className="errors">
+        {loading && <p>loading ...</p>}
+        {error && <p>{error}</p>}
        
+        </div>
+        
+    </div>
+    <div className="login-image-container">
+        <img src="/orderfood.jpg" alt="" />
+    </div>
+    </div>
     </div>
     </UserContainer>
   )

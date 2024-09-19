@@ -20,6 +20,15 @@ const addFoodItem = AsyncHandler(async(req, res)=>{
     if(!title || !description || !price || !category){
         throw new ApiError(400, " all fields are required")
     }
+    if(title.length < 3 || description.length < 3 || category.length < 3){
+        throw new ApiError(400, "all fields length should be more than 3 character")
+    }
+
+    const nameRegex = /^[A-Za-z\s]+$/;
+
+    if (!nameRegex.test(title) || !nameRegex.test(description) || !nameRegex.test(category)) {
+        throw new ApiError(400, "fields should contain only letters");
+    }
 
     const categoryname = await Category.findOne({name:category})
     if(!categoryname){

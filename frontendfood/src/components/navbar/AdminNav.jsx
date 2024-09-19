@@ -19,9 +19,9 @@ const AdminNav = () => {
       </div>
       <ul>
         <Link className='link' to="/admin">admin panel</Link>
-        <Link className='link' to="/admin/order">order</Link>
+        {/* <Link className='link' to="/admin/order">order</Link>
         <Link className='link' to="/admin/fooditem">FoodItem</Link>
-        <Link className='link' to="/admin/user">Users</Link>
+        <Link className='link' to="/admin/user">Users</Link> */}
         <Link className='link' to="/admin/add">Add Fooditem</Link>
 
 

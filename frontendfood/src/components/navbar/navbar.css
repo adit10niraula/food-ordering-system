@@ -1,32 +1,45 @@
 .nav-container{
-    background-color: rgb(139, 83, 83);
+    background-color: #c0b7fc;
     display: flex;
     justify-content: space-between;
-    padding:15px 50px;
-    color:white;
+    padding:0px 50px;
+
 }
 .nav-container p{
     font-size: 25px;
 }
 .homelink{
     text-decoration: none;
-    color: white;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+   
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 90px;
+    height: 90px;
 }
+.homelink img{
+    width: 50px;
+    height: 50px;
+}
+
+
 .nav-container ul{
     display: flex;
     gap:20px;
 }
 .nav-container ul .link{
-    color: white;
+    
+
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: capitalize;
     transition: all 0.3s ease;
+    padding: 15px 0;
+    font-weight: 600;
+    color: black;
     
 }
 .nav-container ul .link:hover{
-    color: orangered;
+    color: #7764F1;
+    
 
 
 }
@@ -34,9 +47,10 @@
 .nav-container ul .button{
     background-color:transparent;
     border: none;
-    color: white;
+    color: black;
+    font-weight: 600;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
     text-transform: capitalize;
     transition: all 0.3s ease;
     padding-bottom: 10px;

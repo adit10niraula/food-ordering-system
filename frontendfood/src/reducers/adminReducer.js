@@ -12,7 +12,7 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_USER_FAIL,
     ADMIN_DETAIL_EDIT_REQUEST,
     ADMIN_DETAIL_EDIT_SUCCESS,
-    ADMIN_DETAIL_EDIT_FAIL
+    ADMIN_DETAIL_EDIT_FAIL, ADMIN_ORDER_FAIL, ADMIN_ORDER_SUCCESS, ADMIN_ORDER_REQUEST
  } from "../constants/adminConstants";
 
 
@@ -54,6 +54,19 @@ export const adminfooditemreducer = (state={loading:false, adminfood:[]}, action
                 loading: false,
                 adminfood: state.adminfood.filter(item => item._id !== action.payload) // Assuming payload contains the deleted item's ID
             };        default:
+            return state
+    }
+}
+
+export const adminorderReducer = (state= {loading:false}, action)=>{
+    switch(action.type){
+        case ADMIN_ORDER_REQUEST:
+            return {loading:true}
+        case ADMIN_ORDER_SUCCESS:
+            return {loading:false, order:action.payload}
+        case ADMIN_ORDER_FAIL:
+            return {loading:false, error:action.payload}
+        default:
             return state
     }
 }

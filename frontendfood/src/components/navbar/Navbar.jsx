@@ -17,20 +17,23 @@ const Navbar = () => {
     }
   return (
     <div className='nav-container'>
-        <p> <Link className='homelink' to="/">khana Ghar</Link></p>
+        <p> <Link className='homelink' to="/"><img src="/logofood.png" alt="" /></Link></p>
 
         <ul>
             <Link className='link' to="/">home</Link>
             <Link className='link' to="/product">FoodItems</Link>
             <Link className='link' to="/cart">cart</Link>
             
-            {userInfo?  <button onClick={handleLogout} className='button'>logout</button> : <>
+           
+        </ul>
+        <ul>
+        {userInfo?  <button onClick={handleLogout} className='button'>logout</button> : <>
             <Link className='link' to="/login"> login</Link>
             <Link className='link' to="/register">register</Link>
             </> }
            
-        </ul>
 
+        </ul>
       
     </div>
   )

@@ -4,7 +4,33 @@
     color:orangered;
 
 }
+.food-cover-image{
+    display: flex;
+    justify-content: center;
+  
+}
 
+.food-cover-image .food-cover-desc{
+    
+    font-size: 50px;
+    font-weight: 600;
+    padding: 90px 0;
+}
+
+.food-cover-image .food-cover-desc button{
+
+    margin: 90px;
+    background-color: #7764F1;
+    color: white;
+    padding: 15px;
+    width: 150px;
+    border-radius: 9px;
+    font-size: 20px;
+}
+.food-cover-image .food-cover-desc button .link{
+    text-decoration: none;
+    color: white;
+}
 /* .home-container .home-fooditems{
     
 } */

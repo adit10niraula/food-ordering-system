@@ -10,7 +10,8 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_ADDFOODITEM_FAIL,
     ADMIN_USER_REQUEST,
     ADMIN_USER_SUCCESS,
-    ADMIN_USER_FAIL
+    ADMIN_USER_FAIL,
+    ADMIN_ORDER_FAIL, ADMIN_ORDER_REQUEST, ADMIN_ORDER_SUCCESS
  } from "../constants/adminConstants";
 
 
@@ -33,6 +34,7 @@ export const adminlogin = (email, password)=> async(dispatch)=>{
         
     }
 }
+
 
 export const adminLogout = ()=> async(dispatch)=>{
     localStorage.removeItem('admin')
@@ -133,6 +135,22 @@ export const displayUser = ()=>async(dispatch)=>{
         dispatch({type:ADMIN_USER_FAIL, payload:error.response && error.response.data.message ? error.response.data.message : error.message})
         
         
+    }
+}
+
+export const adminOrder = ()=> async(dispatch)=>{
+    dispatch({type: ADMIN_ORDER_REQUEST})
+
+    try{
+        const {data} = await axios.get('/api/v1/order/adminorder')
+        dispatch({type: ADMIN_ORDER_SUCCESS, payload:data.data})
+        console.log("order data", data)
+
+    }
+    catch(error){
+        console.log("error", error.response.data)
+        dispatch({type:ADMIN_ORDER_FAIL, payload:error.response && error.response.data.message ? error.response.data.message : error.message})
+
     }
 }
 

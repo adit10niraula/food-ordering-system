@@ -59,6 +59,13 @@ const AdminEditFoodItem = () => {
     }
     return (
       <AdminContainer>
+        <div style={{
+        backgroundImage: "url('/foodcover1.jpg')", // Direct access to public folder image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh" ,
+        opacity: "inherit"
+      }}>
       <div className='admin-addFooditem-container'>
        <form className='admin-food-form'  onSubmit={handleEditFoodItem}>
         <div>
@@ -83,6 +90,7 @@ const AdminEditFoodItem = () => {
         </div>
         <button type="submit">add fooditem</button>
        </form>
+      </div>
       </div>
       </AdminContainer>
     )

@@ -5,7 +5,7 @@ import { allFooditems } from '../../actions/fooditemAction'
 import ProductList from '../../components/product/ProductList'
 import { getAllCategory } from '../../actions/fooditemAction'
 import { useNavigate } from 'react-router-dom'
-
+import { addToCart } from '../../actions/cartAction'
 
 const Products = () => {
     const navigate = useNavigate()
@@ -35,6 +35,11 @@ const Products = () => {
         dispatch(allFooditems(id))
         
     }
+    const handleAddToCart = (id)=>{
+        dispatch(addToCart(id))
+        alert("added to cart")
+        
+    }
 
     const displayitem = categoryid ? fooditem && fooditem.filter((item)=> item.category._id === categoryid):
     fooditem && fooditem;
@@ -43,20 +48,27 @@ const Products = () => {
   return (
     <UserContainer>
     <div>
-
+        
         <div className="product-search-buttons">
             <h1 style={{paddingBottom:"20px"}}>Are You Hungry Here We Got Delicious Food !</h1>
+           
+        <div className='handle_button_search'>
             <button onClick={()=> handlecategoryItem(null)}>all</button>
             {category && category.map((items)=>(
                 <button key={items._id} onClick={()=>handlecategoryItem(items._id)}>{items.name}</button>
             ))}
             
+            <div className="searchfooditems">
+            <input type="text" name="search" id="" />
+            <button type="submit">search</button>
+        </div>
             
+        </div>
         </div>
         
 
         <div className="all-products">
-            <ProductList fooditem={displayitem}/>
+            <ProductList fooditem={displayitem} handleAddToCart={handleAddToCart}/>
 
 
         </div>

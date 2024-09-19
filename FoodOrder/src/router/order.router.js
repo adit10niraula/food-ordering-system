@@ -8,7 +8,7 @@ const router = express.Router()
 router.route('/all').get(authjwt, getAllOrder)
 router.route('/payment').post(authjwt, addPaymentmethod)
 router.route('/create').post(authjwt, createOrder)
-router.route('/adminorder').get(adminjwt, getAdminOrder)
+router.route('/adminorder').get( getAdminOrder)
 
 
 export default router
