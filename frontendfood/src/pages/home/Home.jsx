@@ -45,7 +45,7 @@ const Home = () => {
       
         
         <div className="food-cover-image">
-          <img src="/foodbug.png" alt=""  style={{width: "60%", height:"90vh", objectFit:"cover"}}/>
+          <img src="/foodbug.png" alt="" />
           <div className="food-cover-desc">
           We provide you with healthy food items at convenient prices <br />
           <button> <Link className='link' to="/product">shop now</Link></button>

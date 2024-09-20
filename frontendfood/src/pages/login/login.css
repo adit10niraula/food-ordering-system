@@ -87,3 +87,21 @@
     font-size:16px;
 }
 
+
+
+@media screen and (max-width: 500px) {
+    .login-image-container img {
+        display: none;
+    }
+    .userlogregflex{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .userlog-container{
+        width: 100%;
+      
+      
+    }
+}
