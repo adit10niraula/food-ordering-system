@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 
-const AdminProductDetail = ({fooditem,  handleEdit, handledelete}) => {
+const AdminProductDetail = ({fooditem,  handleEdit, handledelete,adminData}) => {
   const {loading, error} = useSelector((state)=> state.FoodItemDetailDelete)
   const admin = localStorage.getItem('admin')
 

@@ -5,6 +5,7 @@ import { displayUser } from '../../actions/adminAction'
 import "./adminpage.css"
 import { useNavigate } from 'react-router-dom'
 
+
 const AdminUserManage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -24,7 +25,8 @@ const AdminUserManage = () => {
 
     dispatch(displayUser())
   },[])
-
+ 
+  
 
   return (
     <AdminContainer>

@@ -10,6 +10,7 @@ import { addToCart } from '../../actions/cartAction'
 const Products = () => {
     const navigate = useNavigate()
     const [categoryid, setcategoryid] = useState("")
+   
     const dispatch = useDispatch()
     const getfooditem = useSelector((state)=> state.fooditems)
     const {fooditem, loading, error } = getfooditem
@@ -18,9 +19,9 @@ const Products = () => {
 
     const {category} = useSelector((state)=> state.getallcategory)
 
-    if(!userInfo){
-        navigate('/login')
-    }
+    // if(!userInfo){
+    //     navigate('/login')
+    // }
     
 
     useEffect(()=>{
@@ -36,14 +37,23 @@ const Products = () => {
         
     }
     const handleAddToCart = (id)=>{
+        if(!userInfo){
+        navigate('/login')
+    }else{
         dispatch(addToCart(id))
         alert("added to cart")
+    }
         
     }
 
     const displayitem = categoryid ? fooditem && fooditem.filter((item)=> item.category._id === categoryid):
     fooditem && fooditem;
 
+  
+ 
+
+  
+       
     console.log("dipalay item",displayitem)
   return (
     <UserContainer>
@@ -58,10 +68,7 @@ const Products = () => {
                 <button key={items._id} onClick={()=>handlecategoryItem(items._id)}>{items.name}</button>
             ))}
             
-            <div className="searchfooditems">
-            <input type="text" name="search" id="" />
-            <button type="submit">search</button>
-        </div>
+         
             
         </div>
         </div>

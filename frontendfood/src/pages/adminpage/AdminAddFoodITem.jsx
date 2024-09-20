@@ -31,23 +31,31 @@ const AdminAddFoodITem = () => {
 
   },[adminData, navigate])
 
+  
+
 
   const handleAddFoodItem = async(e)=>{
     e.preventDefault()
+   
+   
     await dispatch(adminAddFoodItem(title, description,price,categorys,image))
+
+    if(fooddata){
+
     dispatch(AdminFooditems())
+    alert(`${title} added success`)
+    settitle("")
+    setdescription("")
+    setprice("")
+    setcategory("")
+    setimage("") 
+    }
     
     
   }
   return (
     <AdminContainer>
-      <div style={{
-        backgroundImage: "url('/foodcover1.jpg')", // Direct access to public folder image
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh" ,
-        opacity: "inherit"
-      }}>
+      <div className='Admin_add_Food'>
 
       
     <div className='admin-addFooditem-container'>

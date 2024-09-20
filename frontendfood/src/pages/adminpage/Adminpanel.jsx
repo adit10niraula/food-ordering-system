@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import AdminContainer from '../../components/containers/AdminContainer'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './adminpage.css'
+import { displayUser } from '../../actions/adminAction'
 
 
 const Adminpanel = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const { adminData, loading, error } = useSelector((state) => state.adminLogin);
   const {UserData} = useSelector((state)=> state.DisplayUser)
@@ -16,12 +18,18 @@ const Adminpanel = () => {
     }
 
   },[adminData, navigate])
+
+  useEffect(()=>{
+
+    dispatch(displayUser())
+  },[])
+ 
   console.log("admindata dminpanel", adminData)
   return (
     <AdminContainer>
       <div>
 
-     <h1>Dahboard</h1>
+     <h1>Admin Dashboard</h1>
   
     <div className='adminpanel-container'>
       <div className="admin-order" >

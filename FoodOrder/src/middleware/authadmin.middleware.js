@@ -66,6 +66,9 @@ const adminjwt = AsyncHandler(async(req, res, next)=>{
     next()
     
   } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      throw new ApiError(401, "Token expired, please log in again");
+  }
     console.log("error in admin auth", error)
     throw new ApiError(400, "error in admin authentication")
     

@@ -13,7 +13,7 @@ const ProductList = ({fooditem,handleAddToCart}) => {
 
       
 
-        navigate(`detail/${id}`)
+        navigate(`/product/detail/${id}`)
       
           
           

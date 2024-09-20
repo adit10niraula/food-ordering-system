@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import AdminContainer from '../../components/containers/AdminContainer'
 import { AdminFooditems } from '../../actions/adminAction'
 import { useDispatch,useSelector } from 'react-redux'
-import ProductList from '../../components/product/ProductList'
+
 import { useNavigate } from 'react-router-dom'
+import AdminProductList from '../../components/adminproduct/AdminProductList'
 
 const AdminManageFooditem = () => {
   const dispatch = useDispatch()
@@ -32,7 +33,7 @@ const AdminManageFooditem = () => {
       {loading && <p>loading ....</p>}
       {error && <p>{error}</p>}
       
-    {fooditem && <ProductList fooditem={fooditem}/>}
+    {fooditem && <AdminProductList fooditem={fooditem}/>}
       
     </div>
     </AdminContainer>

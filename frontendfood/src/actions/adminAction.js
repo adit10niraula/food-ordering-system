@@ -11,7 +11,8 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_USER_REQUEST,
     ADMIN_USER_SUCCESS,
     ADMIN_USER_FAIL,
-    ADMIN_ORDER_FAIL, ADMIN_ORDER_REQUEST, ADMIN_ORDER_SUCCESS
+    ADMIN_ORDER_FAIL, ADMIN_ORDER_REQUEST, ADMIN_ORDER_SUCCESS,
+    ADD_CATEGORY_FAIL, ADD_CATEGORY_REQUEST, ADD_CATEGORY_SUCCESS
  } from "../constants/adminConstants";
 
 
@@ -174,4 +175,19 @@ export const adminfooditemdetailedit = (id, updateData)=> async(dispatch)=>{
     }
 
 
+}
+
+export const addCategory = (name)=>async(dispatch)=>{
+    dispatch({type: ADD_CATEGORY_REQUEST})
+
+    try{
+        const {data} = api.post('/api/v1/category/add', {name})
+        dispatch({type: ADD_CATEGORY_SUCCESS, payload:data.data})
+        console.log("data", data)
+
+    }
+    catch(error){
+        dispatch({type:ADD_CATEGORY_FAIL, payload:error.response && error.response.data.message ? error.response.data.message : error.message})
+
+    }
 }

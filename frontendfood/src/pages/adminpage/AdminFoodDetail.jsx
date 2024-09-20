@@ -12,28 +12,42 @@ const AdminFoodDetail = () => {
     const dispatch =   useDispatch()
     const {id }= useParams()
     const {admindetail, loading, error} = useSelector((state)=> state.adminfooditemdetail)
-    
+    const { adminData} = useSelector((state) => state.adminLogin);
+    const admin = localStorage.getItem('admin')
+
+
+  console.log("admin ", admin)
+  
+  useEffect(()=>{
+    if(!adminData){
+      navigate('/adminlogin')
+    }
+
+  },[adminData, navigate])
 
     useEffect(()=>{
         dispatch(adminFoodDetail(id))
         
 
     },[])
+  
 
     const handleEdit = (id)=>{
         navigate(`edit/${id}`)
+        window.location.reload();
     }
     const handledelete = (id)=>{
         dispatch(foodItemDetailDelete(id))
         alert('item deleted success')
         navigate('/admin/fooditem')
     }
+
   return (
     <AdminContainer>
     <div>
         
-        {admindetail && <AdminProductDetail fooditem={admindetail} handleEdit={handleEdit} handledelete={handledelete}/>}
-      
+            {admindetail && <AdminProductDetail fooditem={admindetail} handleEdit={handleEdit} handledelete={handledelete} adminData={adminData}/>}
+        
     </div>
     </AdminContainer>
   )

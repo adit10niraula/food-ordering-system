@@ -1,6 +1,6 @@
 import React, { useEffect, usesimilarerrorEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fooditemdetail } from '../../actions/fooditemAction'
 import ProductDetail from '../../components/product/ProductDetail'
 import ProductList from '../../components/product/ProductList'
@@ -11,9 +11,11 @@ import UserContainer from '../../components/containers/UserContainer'
 
 const Detail = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {id} = useParams()
     const singlefooditem = useSelector((state)=> state.fooditemDetail)
     const similarfood = useSelector((state)=> state.similarFooditems)
+    const {userInfo} = useSelector((state)=> state.userLogin)
 
     const {similarfooditem, loading: similarloading, error:similarerror } = similarfood
    
@@ -29,8 +31,12 @@ const Detail = () => {
     },[dispatch,id])
 
     const handleAddToCart = (id)=>{
+         if(!userInfo){
+        navigate('/login')
+    }else{
+    
         dispatch(addToCart(id))
-        alert("added to cart")
+        alert("added to cart")}
         
     }
   return (
@@ -56,7 +62,7 @@ const Detail = () => {
             {similarloading && <p> loading ...</p>}
             {similarerror && <p> error ....</p>}
 
-            <ProductList fooditem={similarfooditem}/>
+            <ProductList fooditem={similarfooditem} handleAddToCart={handleAddToCart}/>
 
 
         </div>

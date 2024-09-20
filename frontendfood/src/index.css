@@ -45,7 +45,7 @@
     text-align: center;
     padding: 10px 0;
     color: red;
-    text-decoration: underline;
+    
 
 }
 
@@ -75,7 +75,7 @@
 
 .order-container{
     display: flex;
-    justify-content: space-between;
+    
 }
 
 .order-container .cart-item-container{
@@ -83,6 +83,8 @@
 }
 .order-container .order-payment{
     width: 25%;
+   
+    text-align: center;
 }
 
 .order-container .order-payment button{
@@ -95,4 +97,46 @@
     cursor: pointer;
     margin:30px 0;
 
+}
+
+
+/* user profile page */
+
+.current-user-profile{
+   border-top: 3px solid black;
+   border-left: 3px solid black;
+    box-shadow: 10px 10px 5px  rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 50%;
+    
+    margin: 50px auto;
+    height: 60vh;
+}
+
+
+
+.current-user-profile .user-profile-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.current-user-profile .user-detail-profile{
+    padding: 40px 0;
+}
+
+.current-user-profile .user-detail-profile .profile-title{
+    font-size: 20px;
+    color: grey;
+    text-transform: capitalize;
+    padding: 5px;
+}
+
+.current-user-profile .user-detail-profile .profile-detail{
+    font-size: 24px;
+    padding-left: 10px;
+    font-weight:600 ;
 }

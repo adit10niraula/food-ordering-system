@@ -1,5 +1,5 @@
 import { combineReducers,configureStore } from "@reduxjs/toolkit";
-import { userRegisterReducer, userLoginReducer } from "../reducers/userReducers";
+import { userRegisterReducer, userLoginReducer,getCurrenUserReducer } from "../reducers/userReducers";
 import { fooditemsReducers, fooditemDetailReducer, similarFooditemReducer,specialFoodItemsReducer, getallcategoryreducer } from "../reducers/fooditemReducers";
 import { addToCartReducer, getCartItemsReducer, addOrderPaymentReducer, createorderReducer } from "../reducers/cartReducers";
 import { adminLoginReducer, adminfooditemreducer, adminFoodItemDetailReducer,
@@ -11,6 +11,7 @@ import { adminLoginReducer, adminfooditemreducer, adminFoodItemDetailReducer,
 const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
+    getcurrentuser: getCurrenUserReducer,
 
     fooditems: fooditemsReducers,
     fooditemDetail: fooditemDetailReducer,

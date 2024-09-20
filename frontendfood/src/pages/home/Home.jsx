@@ -27,9 +27,9 @@ const Home = () => {
   }
 
 
-  if(!userInfo){
-    navigate('/login')
-  }
+  // if(!userInfo){
+  //   navigate('/login')
+  // }
 
   console.log("specialfooditem", specialfooditem)
   console.log("fod", fooditem)
@@ -53,15 +53,12 @@ const Home = () => {
         </div>
 
         <h1>Today special !!</h1>
-        {userInfo ?
+        
         <div className="home-fooditems">
           <ProductList fooditem={specialfooditem}/>
           
         
-      </div> : <p>user must be logged in</p>
-        
-      }
-        
+      </div>
       
     </div>
     </UserContainer>

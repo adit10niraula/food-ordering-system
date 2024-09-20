@@ -88,12 +88,14 @@
 
 }
 .detail-fooditem .detail-image{
-    width: 45%;
+    width: 600px;
+    height: 350px;
 }
 
 .detail-fooditem .detail-image img{
     width: 100%;
     object-fit: cover;
+    height: 100%;
 
 }
 
@@ -117,12 +119,12 @@
 
 .detail-fooditem .detail-desc .category{
     font-size: 20px;
-    color:orangered
+    color:red;
 }
 
 .detail-fooditem .detail-desc .price{
     padding: 10px 0;
-    color: orangered;
+    color: red;
 }
 
 .detail-fooditem .detail-desc button {
@@ -131,7 +133,7 @@
     height: 30px;
     border: none;
     border-radius: 6px;
-    background-color: rgb(97, 28, 3);
+    background-color: #7764F1;
     color: white;
     
 }
@@ -145,6 +147,7 @@
   
     display: flex;
     margin: 20px 50px;
+    gap:20px;
 }
 
 .cart-item-component .cartimage {

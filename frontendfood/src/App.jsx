@@ -19,6 +19,8 @@ import Adminpanel from './pages/adminpage/Adminpanel'
 import AdminManageFooditem from './pages/adminpage/AdminManageFooditem'
 import AdminFoodDetail from './pages/adminpage/AdminFoodDetail'
 import AdminEditFoodItem from './pages/adminpage/AdminEditFoodItem'
+import Profile from './pages/profile/Profile'
+import AddCategory from './pages/adminpage/AddCategory'
 
 
 const App = () => {
@@ -37,6 +39,7 @@ const App = () => {
       <Route path="/order" element={<Order/>}/>
       <Route path= "/createorder" element={<CreateOrder/>}/>
       <Route path='/product' element={<Products/>}/>
+      <Route path='/profile' element={<Profile/>}/>
 
       <Route path= "/admin" element={<Adminpanel/>}/>
       <Route path= "/adminlogin" element={<Adminlogin/>}/>
@@ -44,6 +47,8 @@ const App = () => {
       <Route path= "/admin/order" element={<AdminOrderManage/>}/>
       <Route path= "/admin/user" element={<AdminUserManage/>}/>
       <Route path= "/admin/add" element={<AdminAddFoodITem/>}/>
+      <Route path= "/admin/addcategory" element={<AddCategory/>}/>
+
       <Route path= "/admin/fooditem/detail/:id" element={<AdminFoodDetail/>}/>
       <Route path= "/admin/fooditem/detail/:id/edit/:id" element={<AdminEditFoodItem/>}/>
      </Routes>

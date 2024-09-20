@@ -45,7 +45,7 @@ const Cart = () => {
         {loading && <p>loading...</p>}
         {error && <p>error ...</p>}
         <div className="cart-item-total">
-            <p>total price: {cartitems && cartitems.results.totalPrice} </p>
+            <p>total price: Rs. {cartitems && cartitems.results.totalPrice} </p>
             <p>total quantity: {cartitems && cartitems.results.totalQuantity} </p>
         <button onClick={handleCheckout}>checkout</button>
         </div>

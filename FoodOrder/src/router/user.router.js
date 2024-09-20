@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerUser, loginUser, getCurrentUser,logoutUser,refreshAccessToken,getAllUser} from '../collection/user.collection.js'
+import { registerUser, loginUser, getCurrentUser,logoutUser,refreshAccessToken,getAllUser, deleteUser} from '../collection/user.collection.js'
 import { upload } from '../middleware/multer.middleware.js'
 import { authjwt } from '../middleware/auth.middleware.js'
 import { adminjwt } from '../middleware/authadmin.middleware.js'
@@ -15,6 +15,7 @@ router.route('/user').get(authjwt, getCurrentUser)
 router.route('/logout').post(authjwt,logoutUser)
 router.route('/refresh').post(authjwt,refreshAccessToken)
 router.route('/getalluser').get(adminjwt, getAllUser)
+router.route('/deleteuser').delete(adminjwt, deleteUser)
 
 
 

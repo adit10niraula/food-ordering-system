@@ -37,8 +37,7 @@ const AdminOrderManage = () => {
         <p>payment status : {item.paymentStatus}</p>
         <p>total price: {item.totalprice}</p>
         <p>transaction code : {item.transactionCode}</p>
-        <p>updated at : {item.updatedAt}</p>
-
+        <p>updated at : {new Date(item.updatedAt).toLocaleString()}</p>
         {/* <p>items: {item.cartitem.map((cart)=>(
           <ul>
             c

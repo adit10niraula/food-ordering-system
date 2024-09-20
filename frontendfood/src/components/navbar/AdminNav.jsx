@@ -15,10 +15,10 @@ const AdminNav = () => {
   return (
     <div className='nav-container'>
       <div className="admin-logo" >
-        <p>admin panel</p>
+        <p><Link className='link' to="/admin">Admin Panel</Link></p>
       </div>
       <ul>
-        <Link className='link' to="/admin">admin panel</Link>
+        
         {/* <Link className='link' to="/admin/order">order</Link>
         <Link className='link' to="/admin/fooditem">FoodItem</Link>
         <Link className='link' to="/admin/user">Users</Link> */}

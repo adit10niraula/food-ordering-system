@@ -4,6 +4,7 @@ import Cartitem from "../../components/product/Cartitem";
 import { addOrderPayment } from "../../actions/cartAction";
 import { useNavigate } from "react-router-dom";
 import UserContainer from "../../components/containers/UserContainer";
+import { getCartItem } from '../../actions/cartAction'
 
 const Order = () => {
   const navigate = useNavigate()
@@ -21,6 +22,7 @@ const Order = () => {
   const uuid = paymentdetail?.uuid
 
   const {userInfo} = useSelector((state)=> state.userLogin)
+ 
 
   
 
@@ -36,6 +38,7 @@ const Order = () => {
    
     
     dispatch(addOrderPayment())
+    dispatch(getCartItem())
   },[dispatch])
   
   
@@ -57,6 +60,8 @@ const Order = () => {
       <div className="order-payment">
         {ordererror && <p>{ordererror}</p>}
         <h1>make payment</h1>
+        <p>total amount: Rs. {cartitems && cartitems.results.totalPrice} </p>
+        <p>total quantity: {cartitems && cartitems.results.totalQuantity} </p>
 
         <div className="payment-form">
           <form

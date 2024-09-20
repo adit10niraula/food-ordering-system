@@ -257,4 +257,19 @@ const getAllUser = AsyncHandler(async(req, res)=>{
     return res.status(200).json(new ApiResponse(200, users, "users fetch succeess"))
 })
 
-export {registerUser, loginUser, getCurrentUser,logoutUser, logoutUsers,refreshAccessToken, getAllUser}
+const deleteUser = AsyncHandler(async(req, res)=>{
+    const {id} = req.params
+    if(!isValidObjectId(id)){
+        throw new ApiError(400 , "provided id is not a valid object id")
+    }
+    const admin = req.user
+    if(!admin){
+        throw new ApiError(400, "admin must be logged in")
+    }
+
+    await User.findByIdAndDelete(id)
+    return res.status(200).json(new ApiResponse(200, {}, "user deleted success "))
+})
+
+export {registerUser, loginUser, getCurrentUser,logoutUser, logoutUsers,refreshAccessToken, getAllUser,deleteUser}
+

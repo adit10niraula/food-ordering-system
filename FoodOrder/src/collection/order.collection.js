@@ -284,7 +284,7 @@ const getAdminOrder = AsyncHandler(async (req, res) => {
   //   throw new ApiError(400, "Error finding aggregation");
   // }
 
-  const orders = await Order.find().populate("user");
+  const orders = await Order.find().populate("user").sort({ createdAt: -1 });
 
   return res
     .status(200)
