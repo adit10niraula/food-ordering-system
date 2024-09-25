@@ -19,6 +19,8 @@ const AdminAddFoodITem = () => {
   const {category} = useSelector((state)=> state.getallcategory)
   const {fooddata, loading, error} = useSelector((state)=> state.adminaddfooditem)
 
+  
+
   console.log("category", fooddata)
   useEffect(()=>{
     dispatch(getAllCategory())
@@ -31,6 +33,20 @@ const AdminAddFoodITem = () => {
 
   },[adminData, navigate])
 
+
+  useEffect(()=>{
+    if(fooddata){
+      dispatch(AdminFooditems())
+    
+    settitle("")
+    setdescription("")
+    setprice("")
+    setcategory("")
+    setimage("") 
+   
+    }
+
+  },[dispatch, fooddata, error])
   
 
 
@@ -40,16 +56,9 @@ const AdminAddFoodITem = () => {
    
     await dispatch(adminAddFoodItem(title, description,price,categorys,image))
 
-    if(fooddata){
+    
 
-    dispatch(AdminFooditems())
-    alert(`${title} added success`)
-    settitle("")
-    setdescription("")
-    setprice("")
-    setcategory("")
-    setimage("") 
-    }
+    
     
     
   }

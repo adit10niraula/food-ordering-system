@@ -18,6 +18,7 @@ const AdminEditFoodItem = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {category} = useSelector((state)=> state.getallcategory)
+    const {editdata, error} = useSelector((state)=> state.editfooditem)
     
     useEffect(()=>{
       dispatch(getAllCategory())
@@ -29,7 +30,7 @@ const AdminEditFoodItem = () => {
     //   },[])
 
     const {id} = useParams()
-    const {admindetail, loading, error} = useSelector((state)=> state.adminfooditemdetail)
+    const {admindetail, loading} = useSelector((state)=> state.adminfooditemdetail)
     console.log("admingdetail", admindetail)
 
     useEffect(()=>{
@@ -45,6 +46,18 @@ const AdminEditFoodItem = () => {
         }
 
     },[id, admindetail, dispatch])
+
+    useEffect(()=>{
+      if(editdata){
+        
+        dispatch(adminFoodDetail(id))
+        navigate(`/admin/fooditem/detail/${id}`)
+      }
+      if(error){
+        alert(`error: ${error}`)
+      }
+
+    }, [dispatch, editdata,error])
   
   
     const handleEditFoodItem = async(e)=>{
@@ -60,7 +73,7 @@ const AdminEditFoodItem = () => {
       }
 
       dispatch(adminfooditemdetailedit(id, formdata))
-      navigate(`/admin/fooditem/detail/${id}`)
+      // navigate(`/admin/fooditem/detail/${id}`)
       
     }
     return (

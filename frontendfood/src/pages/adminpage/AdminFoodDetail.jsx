@@ -6,14 +6,17 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ProductDetail from '../../components/product/ProductDetail'
 import AdminProductDetail from '../../components/adminproduct/AdminProductDetail'
 import { foodItemDetailDelete } from '../../actions/adminAction'
+import { AdminFooditems } from '../../actions/adminAction'
 
 const AdminFoodDetail = () => {
     const navigate = useNavigate()
     const dispatch =   useDispatch()
     const {id }= useParams()
-    const {admindetail, loading, error} = useSelector((state)=> state.adminfooditemdetail)
+    const {admindetail, loading, error:detailerror} = useSelector((state)=> state.adminfooditemdetail)
     const { adminData} = useSelector((state) => state.adminLogin);
     const admin = localStorage.getItem('admin')
+
+    const {success,error} = useSelector((state)=>state.FoodItemDetailDelete)
 
 
   console.log("admin ", admin)
@@ -36,10 +39,27 @@ const AdminFoodDetail = () => {
         navigate(`edit/${id}`)
         window.location.reload();
     }
+
+    useEffect(()=>{
+      if(success){
+       
+        dispatch(AdminFooditems());
+        navigate('/admin/fooditem');
+        
+
+
+      }
+      // if(error){
+      //   alert(`error ${error}`)
+      //   console.log("error", error)
+      // }
+
+    },[dispatch,success,error])
+
     const handledelete = (id)=>{
-        dispatch(foodItemDetailDelete(id))
-        alert('item deleted success')
-        navigate('/admin/fooditem')
+      if (window.confirm('Are you sure you want to delete this item?')) {
+        dispatch(foodItemDetailDelete(id));
+    }
     }
 
   return (

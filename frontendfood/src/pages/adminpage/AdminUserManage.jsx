@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { displayUser } from '../../actions/adminAction'
 import "./adminpage.css"
 import { useNavigate } from 'react-router-dom'
+import { deleteUser } from '../../actions/userAction'
+import { clearDeleteState } from '../../actions/userAction'
 
 
 const AdminUserManage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const {UserData, loading, error} = useSelector((state)=> state.DisplayUser)
+  const {UserData, loading, error:displayerror} = useSelector((state)=> state.DisplayUser)
 
   const { adminData} = useSelector((state) => state.adminLogin);
+  const {deleteuser, error} = useSelector((state)=> state.DeleteUser)
   
   useEffect(()=>{
     if(!adminData){
@@ -24,8 +27,28 @@ const AdminUserManage = () => {
   useEffect(()=>{
 
     dispatch(displayUser())
-  },[])
- 
+  },[dispatch])
+
+  useEffect(()=>{
+
+    if(deleteuser){
+     
+      dispatch(displayUser())
+      
+    }
+    if(error){
+      alert(`error: ${error}`)
+    }
+
+  },[deleteUser,error, dispatch])
+  
+  const handleuserDelete = (id)=>{
+    if(window.confirm("are you sure you want to delete this user ? ")){
+
+      dispatch(deleteUser(id))
+    }
+    
+  }
   
 
   return (
@@ -42,7 +65,7 @@ const AdminUserManage = () => {
           <p className=''>{user.address}</p>
           <p>{user.contact}</p>
           
-          
+          <button type="submit" onClick={()=> handleuserDelete(user?._id)}>delete</button>
            </div>
       })}
       

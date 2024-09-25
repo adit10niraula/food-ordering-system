@@ -62,7 +62,7 @@ const RegisterUser = () => {
             <input type="number" name="contact" id="contact" placeholder='enter your contact number' onChange={(e)=>setcontact(e.target.value)} /> 
             {/* </div> */}
             {/* <div className='reg'> */}
-            <input type="text" name="password" id="password" placeholder='enter your password' onChange={(e)=>setpassword(e.target.value)} /> 
+            <input type="password" name="password" id="password" placeholder='enter your password' onChange={(e)=>setpassword(e.target.value)} /> 
             
             <input type="file" name="profile" id="profile" placeholder='profile'  onChange={(e)=>setprofile(e.target.files[0])}/>
             {/* </div> */}

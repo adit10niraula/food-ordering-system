@@ -12,7 +12,8 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_USER_SUCCESS,
     ADMIN_USER_FAIL,
     ADMIN_ORDER_FAIL, ADMIN_ORDER_REQUEST, ADMIN_ORDER_SUCCESS,
-    ADD_CATEGORY_FAIL, ADD_CATEGORY_REQUEST, ADD_CATEGORY_SUCCESS
+    ADD_CATEGORY_FAIL, ADD_CATEGORY_REQUEST, ADD_CATEGORY_SUCCESS,
+    DELETE_ORDER_FAIL, DELETE_ORDER_REQUEST,DELETE_ORDER_SUCCESS
  } from "../constants/adminConstants";
 
 
@@ -91,7 +92,7 @@ export const foodItemDetailDelete = (id) => async(dispatch)=>{
     try {
         console.log("typing delteing", id)
         await api.delete(`/api/v1/food/delete/${id}`)
-        dispatch({type:ADMIN_DETAIL_DELETE_SUCCESS, payload:id})
+        dispatch({type:ADMIN_DETAIL_DELETE_SUCCESS})
         
     } catch (error) {
         console.log("error", error.response)
@@ -188,6 +189,25 @@ export const addCategory = (name)=>async(dispatch)=>{
     }
     catch(error){
         dispatch({type:ADD_CATEGORY_FAIL, payload:error.response && error.response.data.message ? error.response.data.message : error.message})
+
+    }
+}
+
+
+export const deleteOrder = (id)=>async(dispatch)=>{
+    dispatch({type:DELETE_ORDER_REQUEST})
+   
+
+    try{
+        console.log("trying delete  ")
+        const {data} = await api.delete(`/api/v1/order/delete/${id}`)
+        dispatch({type: DELETE_ORDER_SUCCESS, payload:data.data})
+        
+    }
+    catch(error){
+        console.log("error", error.response.data)
+        dispatch({type:DELETE_ORDER_FAIL, payload:error.response && error.response.data.message? error.response.data.message : error.message})
+
 
     }
 }

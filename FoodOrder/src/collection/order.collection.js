@@ -227,62 +227,8 @@ const createOrder = AsyncHandler(async (req, res) => {
 });
 
 const getAdminOrder = AsyncHandler(async (req, res) => {
-  const user = req.user;
+  const admin = req.user;
  
-  // if (!user) {
-  //   throw new ApiError(400, "admin must be logged in to contiue");
-  // }
-
-  // let orders
-  // try {
-  //   orders = await Order.aggregate([
-  //     {
-  //       $match: {
-  //         _id: new mongoose.Types.ObjectId("66bb789a9dbdf96e7ed4567a"), // Replace with your order ID
-  //       },
-  //     },
-  //     {
-  //       $lookup: {
-  //         from: "carts", // Name of the Cart collection
-  //         localField: "cartitem",
-  //         foreignField: "_id",
-  //         as: "allcartitems",
-  //       },
-  //     },
-  // {
-  //   $unwind: "$allcartitems",
-  // },
-  // {
-  //   $lookup: {
-  //     from: "fooditems", // Name of the FoodItem collection
-  //     localField: "allcartitems.fooditem",
-  //     foreignField: "_id",
-  //     as: "fooddetails",
-  //   },
-  // },
-  // {
-  //   $unwind: "$fooddetails",
-  // },
-  // {
-  //   $group: {
-  //     _id: "$_id",
-  //     cartitem: { $push: "$allcartitems" },
-  //     fooddetails: { $push: "$fooddetails" },
-  //     user: { $first: "$user" },
-  //     totalprice: { $first: "$totalprice" },
-  //     address: { $first: "$address" },
-  //     paymentStatus: { $first: "$paymentStatus" },
-  //     transactionCode: { $first: "$transactionCode" },
-  //     createdAt: { $first: "$createdAt" },
-  //     updatedAt: { $first: "$updatedAt" },
-  //   },
-  // },
-  // ]);
-
-  // } catch (error) {
-  //   console.log("Error finding aggregation:", error);
-  //   throw new ApiError(400, "Error finding aggregation");
-  // }
 
   const orders = await Order.find().populate("user").sort({ createdAt: -1 });
 
@@ -291,4 +237,50 @@ const getAdminOrder = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, orders, "got all order success"));
 });
 
-export { getAllOrder, addPaymentmethod, createOrder, getAdminOrder };
+const deleteOrder = AsyncHandler(async(req, res)=>{
+  const {id} = req.params
+
+  if(!id){
+    throw new ApiError(400, "id value is empty")
+  }
+
+  const admin = req.user
+  if(!admin){
+      throw new ApiError(400, "admin must be logged in")
+  }
+
+  try {
+    console.log("trying delete")
+    
+    const deletedOrder = await Order.findByIdAndDelete(id);
+    if (!deletedOrder) {
+      console.error("order not found with ID:", id);
+      throw new ApiError(404, "order not found");
+    }
+    
+    return res.status(200).json(new ApiResponse(200, {}, "order deleted successfully"));
+  } catch (error) {
+    console.error("Error deleting order:", error.message);
+    throw new ApiError(500, "Internal Server Error");
+  }
+
+})
+
+const UserOrder = AsyncHandler(async(req, res)=>{
+  const user = req.user
+  console.log("req ************************", user)
+
+  if(!user){
+    throw new ApiError(400, "user not logged in")
+  }
+
+  const order = await Order.find({user:user._id})
+
+  console.log("orders..................",order)
+  if(!order){
+    return res.status(200, {}, "order is empty")
+  }
+  return res.status(200, order, "order fetch success")
+})
+
+export { getAllOrder, addPaymentmethod, createOrder, getAdminOrder,deleteOrder, UserOrder };

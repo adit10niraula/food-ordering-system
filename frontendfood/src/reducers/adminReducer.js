@@ -13,7 +13,8 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_DETAIL_EDIT_REQUEST,
     ADMIN_DETAIL_EDIT_SUCCESS,
     ADMIN_DETAIL_EDIT_FAIL, ADMIN_ORDER_FAIL, ADMIN_ORDER_SUCCESS, ADMIN_ORDER_REQUEST,
-    ADD_CATEGORY_REQUEST, ADD_CATEGORY_FAIL, ADD_CATEGORY_SUCCESS
+    ADD_CATEGORY_REQUEST, ADD_CATEGORY_FAIL, ADD_CATEGORY_SUCCESS,
+    DELETE_ORDER_FAIL, DELETE_ORDER_SUCCESS, DELETE_ORDER_REQUEST
  } from "../constants/adminConstants";
 
 
@@ -49,12 +50,7 @@ export const adminfooditemreducer = (state={loading:false, adminfood:[]}, action
             return {loading:false, adminfood:action.payload}
         case ADMIN_FOODITEM_FAIL:
             return{loading:false, error:action.payload}
-        case ADMIN_DETAIL_DELETE_SUCCESS:
-            return {
-                ...state, 
-                loading: false,
-                adminfood: state.adminfood.filter(item => item._id !== action.payload) // Assuming payload contains the deleted item's ID
-            };        default:
+         default:
             return state
     }
 }
@@ -85,29 +81,31 @@ export const adminFoodItemDetailReducer = (state = {loading:false}, action)=>{
     }
 }
 
-export const FoodItemDetailDeleteReducer = (state ={loading:false}, action)=>{
+export const FoodItemDetailDeleteReducer = (state ={}, action)=>{
+
     switch(action.type){
         case ADMIN_DETAIL_DELETE_REQUEST:
             return {loading:true}
-        // case ADMIN_DETAIL_DELETE_SUCCESS:
-        //     return {loading:false, deleteData:action.payload}
+        case ADMIN_DETAIL_DELETE_SUCCESS:
+            return {...state, loading:false, success: true}
         case ADMIN_DETAIL_DELETE_FAIL:
-            return {loading:false, error:action.payload}
+            return {...state, loading:false, error:action.payload}
         default:
             return state
+
     }
 
 }
 
 
-export const adminaddfooditemReducer = (state= {loading:false}, action)=>{
+export const adminaddfooditemReducer = (state= {}, action)=>{
     switch(action.type){
         case ADMIN_ADDFOODITEM_REQUEST:
             return {loading:true}
         case ADMIN_ADDFOODITEM_SUCCESS:
-            return {loading:false, fooddata: action.payload}
+            return {...state, loading:false, fooddata: action.payload}
         case ADMIN_ADDFOODITEM_FAIL:
-            return {loading:false, error:action.payload}
+            return {...state, loading:false, error:action.payload}
         default:
             return state
 
@@ -127,17 +125,31 @@ export const DisplayUserReducer = (state = {loading:false}, action)=>{
     }
 }
 
-export const editfooditemsReducer = (state = {loading:false}, action)=>{
+export const editfooditemsReducer = (state = {}, action)=>{
     switch(action.type){
         case ADMIN_DETAIL_EDIT_REQUEST:
             return {loading:true}
         case ADMIN_DETAIL_EDIT_SUCCESS:
-            return {loading:false, editdata: action.payload}
+            return {...state, loading:false, editdata: action.payload}
         case ADMIN_DETAIL_EDIT_FAIL:
-            return {loading:false, error:action.payload}
+            return {...state, loading:false, error:action.payload}
         default:
             return state
 
     }
 }
 
+
+export const DeleteOrderReducer = (state= {}, action)=>{
+    switch(action.type){
+        case DELETE_ORDER_REQUEST:
+            return {loading: true}
+        case DELETE_ORDER_SUCCESS:
+            return {...state, loading:false, deleteorder:action.payload}
+        case DELETE_ORDER_FAIL:
+            return {...state, loading:false, error: action.payload}
+        
+        default:
+            return state
+    }
+ }

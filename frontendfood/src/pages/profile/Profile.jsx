@@ -3,13 +3,17 @@ import UserContainer from '../../components/containers/UserContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser } from '../../actions/userAction'
 import { useNavigate } from 'react-router-dom'
+import { userOrder } from '../../actions/userAction'
 
 const Profile = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {user} = useSelector((state)=>state.getcurrentuser)
     const {userInfo} = useSelector((state)=> state.userLogin)
-    console.log("profile user", user)
+    
+
+    // const {userorder}  = useSelector((state)=> state.userorders)
+    // console.log("userorderss", userorder)
 
     if(!userInfo){
         navigate('/login')
@@ -17,6 +21,7 @@ const Profile = () => {
 
     useEffect(()=>{
         dispatch(getCurrentUser())
+        // dispatch(userOrder())
     },[])
 
   return (

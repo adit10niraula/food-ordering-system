@@ -3,6 +3,7 @@ import { uploadToCoudinary } from "../utils/CloudinaryUpload.js";
 import { ApiError } from "../utils/ErrorHandler.js";
 import { ApiResponse } from "../utils/ResponseHandler.js";
 import { User } from "../models/user.model.js";
+import { Order } from "../models/order.model.js";
 import jwt from 'jsonwebtoken'
 
 const createAccessRefreshToken = async(userId)=>{
@@ -259,16 +260,31 @@ const getAllUser = AsyncHandler(async(req, res)=>{
 
 const deleteUser = AsyncHandler(async(req, res)=>{
     const {id} = req.params
-    if(!isValidObjectId(id)){
-        throw new ApiError(400 , "provided id is not a valid object id")
+   
+    if(!id){
+        throw new ApiError(400, "id not  found")
     }
+    
     const admin = req.user
     if(!admin){
         throw new ApiError(400, "admin must be logged in")
     }
-
-    await User.findByIdAndDelete(id)
-    return res.status(200).json(new ApiResponse(200, {}, "user deleted success "))
+    
+   
+    try {
+        console.log("trying delete")
+        await Order.deleteMany({user:id})
+        const deletedUser = await User.findByIdAndDelete(id);
+        if (!deletedUser) {
+          console.error("User not found with ID:", id);
+          throw new ApiError(404, "User not found");
+        }
+        
+        return res.status(200).json(new ApiResponse(200, {}, "User deleted successfully"));
+      } catch (error) {
+        console.error("Error deleting user:", error.message);
+        throw new ApiError(500, "Internal Server Error");
+      }
 })
 
 export {registerUser, loginUser, getCurrentUser,logoutUser, logoutUsers,refreshAccessToken, getAllUser,deleteUser}
