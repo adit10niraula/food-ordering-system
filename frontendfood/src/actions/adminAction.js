@@ -182,9 +182,9 @@ export const addCategory = (name)=>async(dispatch)=>{
     dispatch({type: ADD_CATEGORY_REQUEST})
 
     try{
-        const {data} = api.post('/api/v1/category/add', {name})
+        const {data} = axios.post('/api/v1/category/add', {name})
         dispatch({type: ADD_CATEGORY_SUCCESS, payload:data.data})
-        console.log("data", data)
+        console.log("categorydata", data)
 
     }
     catch(error){

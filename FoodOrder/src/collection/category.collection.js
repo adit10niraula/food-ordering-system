@@ -10,10 +10,10 @@ const addCategory = AsyncHandler(async(req, res)=>{
     if(!name){
         throw new ApiError(400, "name is required")
     }
-    const admin = req.user
-    if(!admin){
-        throw new ApiError(400, "admin is not logged in")
-    }
+    // const admin = req.user
+    // if(!admin){
+    //     throw new ApiError(400, "admin is not logged in")
+    // }
     const getcategory = await Category.find({name:name})
     console.log("get category", getcategory)
     if(getcategory.length > 0){

@@ -4,7 +4,7 @@ import { authjwt } from '../middleware/auth.middleware.js'
 import { addCategory, displayCategory, updateCategory, deleteCategory } from '../collection/category.collection.js'
 const router = express.Router()
 
-router.route('/add').post(adminjwt, addCategory)
+router.route('/add').post(addCategory)
 router.route('/display').get(displayCategory)
 router.route('/update/:id').patch(adminjwt, updateCategory)
 router.route('/delete/:id').delete(adminjwt, deleteCategory)

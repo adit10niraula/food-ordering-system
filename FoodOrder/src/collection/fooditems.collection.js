@@ -16,6 +16,10 @@ const addFoodItem = AsyncHandler(async(req, res)=>{
     if(!admin){
         throw new ApiError(400, "admin is not logged in")
     }
+    if(price <= 0){
+        throw new ApiError(400, "price must be greater 0")
+
+    }
 
     if(!title || !description || !price || !category){
         throw new ApiError(400, " all fields are required")
@@ -160,6 +164,9 @@ const updateFoodItems = AsyncHandler(async(req, res)=>{
     
     if(!isValidObjectId(id)){
         throw new ApiError(400, "given id is not a valid object is")
+    }
+    if(price < 0){
+        throw new ApiError(400, "price must be greater then 0")
     }
     const admin = req.user
     if(!admin){

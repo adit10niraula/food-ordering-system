@@ -39,13 +39,21 @@ const registerUser = AsyncHandler(async(req, res)=>{
         throw new ApiError(400, "all fields are required")
     }
 
-    if(name.length < 3 || address.length < 3){
-        throw new ApiError(400, "field should be atleast 4 character")
+    if(name.length < 3 ){
+        throw new ApiError(400, "name should be atleast 4 character")
+    }
+    if(address.length < 3){
+        throw new ApiError(400, "address should be atleast 4 character")
+
     }
     const nameRegex = /^[A-Za-z\s]+$/;
 
-    if (!nameRegex.test(name) || !nameRegex.test(address)) {
-        throw new ApiError(400, "fields should contain only letters");
+    if (!nameRegex.test(name)) {
+        throw new ApiError(400, "name should contain only string");
+    }
+    if(!nameRegex.test(address)){
+        throw new ApiError(400, "address should contain only string");
+
     }
 
     if(password.length < 6){
@@ -60,7 +68,7 @@ const registerUser = AsyncHandler(async(req, res)=>{
     const phoneRegex = /^(98|97)\d{8}$/;
 
     if (!phoneRegex.test(contact)) {
-        throw new ApiError(400, "Phone number must start with 98 or 97 and contain exactly 10 digits");
+        throw new ApiError(400, "contact must start with 98 or 97 and contain exactly 10 digits");
     }
 
     
@@ -122,7 +130,7 @@ const loginUser = AsyncHandler(async(req, res)=>{
 
     const user = await User.findOne({email: email})
     if(!user){
-        throw new ApiError(400, "user not found")
+        throw new ApiError(400, "incorrect email or password")
     }
   
 

@@ -62,7 +62,7 @@ const LoginUser = () => {
             <input type="password" name="password" id="password" placeholder='password' onChange={(e)=>setpassword(e.target.value)} />
             
             <button type="submit">login</button>
-            <p>doesnot have account <Link to="/register">sing in</Link></p>
+            <p>doesnot have account <Link to="/register">sign in</Link></p>
             <p>are you admin <Link to="/adminlogin">admin login</Link> </p>
         </form>
 

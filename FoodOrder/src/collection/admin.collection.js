@@ -43,7 +43,7 @@ const adminlogin = AsyncHandler(async(req, res)=>{
     const checkpassword = await user.comparepassword(password)
     if(!checkpassword){
         // return next(createApiError(400,"incorrect password"))
-        throw new ApiError(400, "incorrect password")
+        throw new ApiError(400, "incorrect email or password")
     }
 
     const {accessToken, refreshToken} = await generateAccessRefreshToken(user._id)

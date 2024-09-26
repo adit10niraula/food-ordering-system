@@ -346,3 +346,34 @@ h1{
     
     }
 }
+
+.handle_button_search button{
+    background-color: rgb(122, 122, 216);
+    margin: 10px;
+    padding: 10px;
+    color:white;
+    border-radius: 6px;
+}
+
+.category-container{
+    text-align: center;
+    height: 80vh;
+    padding-top:100px;
+
+}
+
+.category-insert input{
+    font-size: 30px;
+   
+
+    
+}
+
+.category-insert button{
+    background-color: blue;
+    height: 30px;
+    margin-top: 10px;
+    color:white;
+    border-radius: 6px ;
+    padding: 10px;
+}

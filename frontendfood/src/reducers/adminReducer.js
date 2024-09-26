@@ -153,3 +153,17 @@ export const DeleteOrderReducer = (state= {}, action)=>{
             return state
     }
  }
+
+ export const AddCategoryReducer = (state= {}, action)=>{
+    switch(action.type){
+        case ADD_CATEGORY_REQUEST:
+            return {loading: true}
+        case ADD_CATEGORY_SUCCESS:
+            return { loading:false, categoryadd:action.payload}
+        case ADD_CATEGORY_FAIL:
+            return { loading:false, error: action.payload}
+        
+        default:
+            return state
+    }
+ }
