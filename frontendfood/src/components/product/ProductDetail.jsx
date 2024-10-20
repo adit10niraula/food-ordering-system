@@ -8,6 +8,11 @@ const ProductDetail = ({fooditem, handleAddToCart}) => {
 
 
 
+  const avgrating = fooditem?.rating?.reduce((acc, curr)=> acc + curr?.rating, 0)/ fooditem?.rating?.length || 0
+
+
+
+
 
 
   return (
@@ -24,6 +29,10 @@ const ProductDetail = ({fooditem, handleAddToCart}) => {
                     <p className='description'>{fooditem?.description}</p>
                     <p className='category'>{fooditem?.category?.name}</p>
                     <p className='price'>Rs. {fooditem?.price}</p>
+                    <p className='rating'>rating:  {avgrating.toFixed(1)}</p>
+                    <p className='rating'>rating by:  {fooditem?.rating?.length} people</p>
+                    
+
                     <button onClick={()=>handleAddToCart(fooditem?._id)}>add to cart</button> 
                     
                 </div>

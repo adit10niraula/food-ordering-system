@@ -82,53 +82,14 @@ const addPaymentmethod = AsyncHandler(async (req, res) => {
 
     const userObjectId = new mongoose.Types.ObjectId(userId);
 
-    const result = await Cart.aggregate([
-      { $match: { user: userObjectId } },
-
-      {
-        $lookup: {
-          from: "fooditems", // Collection name in MongoDB
-          localField: "fooditem",
-          foreignField: "_id",
-          as: "foodDetails",
-        },
-      },
-
-      // Unwind the foodDetails array to work with individual objects
-      { $unwind: "$foodDetails" },
-
-      // Project the necessary fields and calculate total price for each item
-      {
-        $project: {
-          _id: 0,
-          price: { $multiply: ["$quantity", "$foodDetails.price"] },
-          quantity: "$quantity",
-        },
-      },
-
-      // Group by null to calculate the overall total price and quantity
-      {
-        $group: {
-          _id: userObjectId,
-          totalPrice: { $sum: "$price" },
-          totalQuantity: { $sum: "$quantity" },
-        },
-      },
-    ]);
-
-    // Return the result
-    const results =
-      result.length > 0 ? result[0] : { totalPrice: 0, totalQuantity: 0 };
-  
-
-    if (results.totalPrice <= 0) {
-      throw new ApiError(400, "please add to cart some item");
-    }
-
+    const cart = await Cart.findOne({user:userId})
+    const totalPrice = cart.totalPrice
+    
+ 
     const uuid = uuidv4();
    
 
-    const message = `total_amount=${results.totalPrice},transaction_uuid=${uuid},product_code=EPAYTEST`;
+    const message = `total_amount=${totalPrice},transaction_uuid=${uuid},product_code=EPAYTEST`;
 
     const hash = CryptoJS.HmacSHA256(message, process.env.ESEWASECRET);
 
@@ -137,7 +98,7 @@ const addPaymentmethod = AsyncHandler(async (req, res) => {
     
 
     const output = {
-      results: results,
+      totalPrice:totalPrice,
       signature: hashinBase64,
       uuid: uuid,
       userId: userObjectId,
@@ -150,92 +111,268 @@ const addPaymentmethod = AsyncHandler(async (req, res) => {
   }
 });
 
+// const createOrder = AsyncHandler(async (req, res) => {
+//   try {
+
+//     const user = req.user;
+    
+//     if (!user) {
+//       throw new ApiError(400, "user is not logged in");
+//     }
+
+//     const cartitem = await Cart.find({user:user._id})
+    
+//     const userId = new mongoose.Types.ObjectId(user._id);
+   
+//     const data = req.query.data;
+
+//     if (!data) {
+//       return res
+//         .status(400)
+//         .json({ message: "Data query parameter is required" });
+//     }
+//     const decodeString = Buffer.from(data, "base64").toString("utf-8");
+
+//     try {
+//       const parsedata = JSON.parse(decodeString);
+     
+
+//       const cart = await Cart.find({ user: user._id })
+      
+//       const { address } = await User.findById(user._id);
+//       if(!address){
+//         throw new ApiError(400, "no address")
+//       }
+
+      
+//       if (cart.length === 0 ) {
+//         throw new ApiError(400, "cart is empty");
+//       }
+
+//       try {
+//         const order = await Order.create({
+//           cartitem: cart?.map((item) => item._id),
+//           user: user._id,
+//           totalprice: parsedata.total_amount,
+//           address: address,
+//           paymentStatus: "Paid",
+//           transactionCode: parsedata.transaction_code,
+//         });
+
+//         const getorder = await Order.findById(order._id);
+//         if (!getorder) {
+//           throw new ApiError(400, "order is not created");
+//         }
+
+//         await Cart.deleteMany({ user: user._id });
+
+//         return res
+//           .status(200)
+//           .json(
+//             new ApiResponse(
+//               200,
+//               { parsedata, order, getorder },
+//               "Order added to cart successfully"
+//             )
+//           );
+//       } catch (modelerror) {
+//         throw new ApiError(400, "invalid model");
+//       }
+//     } catch (jsonerror) {
+//       throw new ApiError(400, "invalid json");
+//     }
+//   } catch (error) {
+//     console.error("Error decoding data:", error);
+//     return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
+
+
+// const createOrder = AsyncHandler(async (req, res) => {
+//   try {
+//     const user = req.user;
+
+//     if (!user) {
+//       throw new ApiError(400, "User is not logged in");
+//     }
+
+//     // Retrieve cart items for the user
+//     const cart = await Cart.findOne({ user: user._id }).populate('fooditem.items');
+
+//     if (!cart || cart.fooditem.length === 0) {
+//       throw new ApiError(400, "Cart is empty");
+//     }
+
+//     // Ensure user has an address
+//     const { address } = await User.findById(user._id);
+//     if (!address) {
+//       throw new ApiError(400, "No address found for user");
+//     }
+
+//     // Decode data from the query parameter
+//     const data = req.query.data;
+//     if (!data) {
+//       return res.status(400).json({ message: "Data query parameter is required" });
+//     }
+//     const decodeString = Buffer.from(data, "base64").toString("utf-8");
+
+//     try {
+//       // Parse decoded data
+//       const parsedata = JSON.parse(decodeString);
+
+//       // Create a new order
+//       const order = await Order.create({
+//         cartitem: cart.fooditem.map((item) => ({
+//           fooditem: item.items,
+//           quantity: item.quantity,
+//         })),
+//         user: user._id,
+//         totalprice: parsedata.total_amount,
+//         address: address,
+//         paymentStatus: "Paid",
+//         transactionCode: parsedata.transaction_code,
+//       });
+
+//       // Populate the order with food item details
+//       const getOrder = await Order.findById(order._id).populate('cartitem.fooditem');
+//       if (!getOrder) {
+//         throw new ApiError(400, "Order was not created");
+//       }
+
+//       // Delete user's cart items
+//       await Cart.deleteMany({ user: user._id });
+
+//       // Respond with the created order including food item details
+//       return res
+//         .status(200)
+//         .json(
+//           new ApiResponse(
+//             200,
+//             { order: getOrder },
+//             "Order created successfully"
+//           )
+//         );
+
+//     } catch (jsonError) {
+//       throw new ApiError(400, "Invalid JSON data");
+//     }
+//   } catch (error) {
+//     console.error("Error creating order:", error);
+//     return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
+
 const createOrder = AsyncHandler(async (req, res) => {
   try {
-
     const user = req.user;
-    
+
     if (!user) {
-      throw new ApiError(400, "user is not logged in");
+      throw new ApiError(400, "User is not logged in");
     }
 
-    const cartitem = await Cart.find({user:user._id})
-    
-    const userId = new mongoose.Types.ObjectId(user._id);
-   
-    const data = req.query.data;
+    // Retrieve cart items for the user
+    const cart = await Cart.findOne({ user: user._id }).populate('fooditem.items');
 
+    if (!cart || cart.fooditem.length === 0) {
+      throw new ApiError(400, "Cart is empty");
+    }
+
+    // Ensure user has an address
+    const { address } = await User.findById(user._id);
+    if (!address) {
+      throw new ApiError(400, "No address found for user");
+    }
+
+    // Decode data from the query parameter
+    const data = req.query.data;
     if (!data) {
-      return res
-        .status(400)
-        .json({ message: "Data query parameter is required" });
+      return res.status(400).json({ message: "Data query parameter is required" });
     }
     const decodeString = Buffer.from(data, "base64").toString("utf-8");
 
     try {
+      // Parse decoded data
       const parsedata = JSON.parse(decodeString);
-     
 
-      const cart = await Cart.find({ user: user._id })
-      
-      const { address } = await User.findById(user._id);
-      if(!address){
-        throw new ApiError(400, "no address")
+      // Create a new order
+      const order = await Order.create({
+        cartitem: cart.fooditem.map((item) => ({
+          fooditem: item.items,
+          quantity: item.quantity,
+        })),
+        user: user._id,
+        totalprice: parsedata.total_amount,
+        address: address,
+        paymentStatus: "Paid",
+        transactionCode: parsedata.transaction_code,
+      });
+
+      // Populate the nested path to get the full details of food items
+      const getOrder = await Order.findById(order._id).populate({
+        path: 'cartitem.fooditem', // Populate `fooditem` in `cartitem`
+        model: 'FoodItem',         // Specify the model for better accuracy
+      });
+
+      if (!getOrder) {
+        throw new ApiError(400, "Order was not created");
       }
 
-      
-      if (cart.length === 0 ) {
-        throw new ApiError(400, "cart is empty");
-      }
+      // Delete user's cart items
+      await Cart.deleteMany({ user: user._id });
 
-      try {
-        const order = await Order.create({
-          cartitem: cart?.map((item) => item._id),
-          user: user._id,
-          totalprice: parsedata.total_amount,
-          address: address,
-          paymentStatus: "Paid",
-          transactionCode: parsedata.transaction_code,
-        });
+      // Respond with the created order including food item details
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            { order: getOrder },
+            "Order created successfully"
+          )
+        );
 
-        const getorder = await Order.findById(order._id);
-        if (!getorder) {
-          throw new ApiError(400, "order is not created");
-        }
-
-        await Cart.deleteMany({ user: user._id });
-
-        return res
-          .status(200)
-          .json(
-            new ApiResponse(
-              200,
-              { parsedata, order, getorder },
-              "Order added to cart successfully"
-            )
-          );
-      } catch (modelerror) {
-        throw new ApiError(400, "invalid model");
-      }
-    } catch (jsonerror) {
-      throw new ApiError(400, "invalid json");
+    } catch (jsonError) {
+      throw new ApiError(400, "Invalid JSON data");
     }
   } catch (error) {
-    console.error("Error decoding data:", error);
+    console.error("Error creating order:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-const getAdminOrder = AsyncHandler(async (req, res) => {
-  const admin = req.user;
+
+
+// const getAdminOrder = AsyncHandler(async (req, res) => {
+//   const admin = req.user;
  
 
-  const orders = await Order.find().populate("user").sort({ createdAt: -1 });
+//   const orders = await Order.find().populate("user").sort({ createdAt: -1 });
+
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, orders, "got all order success"));
+// });
+
+const getAdminOrder = AsyncHandler(async (req, res) => {
+  const admin = req.user;
+
+  const orders = await Order.find()
+    .populate("user")
+    .populate({
+      path: "cartitem.fooditem",
+      model: "FoodItem"
+    })
+    .sort({ createdAt: -1 });
+
+
+
+ 
 
   return res
     .status(200)
-    .json(new ApiResponse(200, orders, "got all order success"));
+    .json(new ApiResponse(200, orders, "got all orders successfully"));
 });
+
 
 const deleteOrder = AsyncHandler(async(req, res)=>{
   const {id} = req.params
@@ -250,7 +387,7 @@ const deleteOrder = AsyncHandler(async(req, res)=>{
   }
 
   try {
-    console.log("trying delete")
+    
     
     const deletedOrder = await Order.findByIdAndDelete(id);
     if (!deletedOrder) {
@@ -268,19 +405,40 @@ const deleteOrder = AsyncHandler(async(req, res)=>{
 
 const UserOrder = AsyncHandler(async(req, res)=>{
   const user = req.user
-  console.log("req ************************", user)
+ 
 
   if(!user){
     throw new ApiError(400, "user not logged in")
   }
 
-  const order = await Order.find({user:user._id})
+  const order = await Order.find({user:user._id}).populate({path:"cartitem.fooditem", model:"FoodItem"}).sort({createdAt: -1})
 
-  console.log("orders..................",order)
+  
   if(!order){
-    return res.status(200, {}, "order is empty")
+    return res.status(200).json(200, {}, "no order found")
   }
-  return res.status(200, order, "order fetch success")
+  return res.status(200).json(new ApiResponse(200, order, "order fetch success"))
 })
 
-export { getAllOrder, addPaymentmethod, createOrder, getAdminOrder,deleteOrder, UserOrder };
+
+
+
+const updateOrderStatus = AsyncHandler(async (req, res) => {
+  const { status } = req.body;
+  console.log("req status 44444444444444444",status)
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.status = status;
+    await order.save();
+    res.json({ message: 'Order status updated successfully' });
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+
+
+
+export { getAllOrder, addPaymentmethod, createOrder, getAdminOrder,deleteOrder, UserOrder,updateOrderStatus };

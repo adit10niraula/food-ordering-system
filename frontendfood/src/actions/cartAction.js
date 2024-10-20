@@ -33,7 +33,7 @@ export const deleteCartItem = (id)=>async(dispatch)=>{
     
 
     try {
-        await api.post(`/api/v1/cart/delete/`, {id})
+        await api.post(`/api/v1/cart/delete`, {id})
         dispatch({type:DELETE_CART_SUCCESS, payload:id})
 
        

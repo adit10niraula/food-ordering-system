@@ -4,7 +4,7 @@ import './singleproduct.css'
 
 import { useNavigate } from 'react-router-dom'
 
-const ProductList = ({fooditem,handleAddToCart}) => {
+const ProductList = ({fooditem,handleAddToCart,addToFavourate}) => {
     const navigate = useNavigate()
  
  
@@ -23,7 +23,7 @@ const ProductList = ({fooditem,handleAddToCart}) => {
   return (
     <div className='productlist-container'>
         { fooditem && fooditem.map((item)=>(
-          <SingleProduct key={item._id} item={item} handleDetail={handleDetail} handleAddToCart={handleAddToCart}/>
+          <SingleProduct key={item._id} item={item} handleDetail={handleDetail} handleAddToCart={handleAddToCart} addToFavourate={addToFavourate}/>
         ))}
       
     </div>

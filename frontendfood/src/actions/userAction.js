@@ -79,6 +79,7 @@ export const getCurrentUser = ()=>async(dispatch)=>{
     try{
         const {data} = await api.get('/api/v1/user/user')
         dispatch({type: GET_CURRENT_USER_SUCCESS, payload:data.data})
+        console.log("user dta fav", data)
         
     }catch(error){
         dispatch({type:GET_CURRENT_USER_FAIL, payload:error.response && error.response.data.message? error.response.data.message : error.message})

@@ -12,8 +12,8 @@ const Profile = () => {
     const {userInfo} = useSelector((state)=> state.userLogin)
     
 
-    // const {userorder}  = useSelector((state)=> state.userorders)
-    // console.log("userorderss", userorder)
+    const {userorder}  = useSelector((state)=> state.userorders)
+    console.log("userorderss", userorder)
 
     if(!userInfo){
         navigate('/login')
@@ -21,7 +21,7 @@ const Profile = () => {
 
     useEffect(()=>{
         dispatch(getCurrentUser())
-        // dispatch(userOrder())
+        dispatch(userOrder())
     },[])
 
   return (
@@ -47,6 +47,35 @@ const Profile = () => {
 
             </div>
         </div>
+
+{userorder && userorder.length > 0 &&
+
+        <div className="user-food-orders">
+            <h1>Orders</h1>
+
+            {userorder && userorder?.map((order)=>(
+                <div key={order._id} className='user-order-detail-info'>
+                <p>order id: {order?._id}</p>
+                <p> payment status: {order?.paymentStatus}</p>
+                <p>status: {order?.status}</p>
+                
+                {order?.cartitem?.map((item)=>(
+                    <div key={item?.fooditem?._id} className='order-user-fooditem'>
+                        <div className="image">
+                            <img src={item?.fooditem?.image} alt="" />
+                        </div>
+                        <div className="user-order-detail">
+                        <p>name:{item?.fooditem?.title}</p>
+                        <p>price:{item?.fooditem?.price}</p>
+                        <p>quantity: {item?.quantity}</p>
+                        </div>
+                         </div>
+
+                ))} 
+                <p>total Price : {order?.totalprice}</p>  
+                 </div>
+            ))}
+        </div>}
       
     </div>
     </UserContainer>

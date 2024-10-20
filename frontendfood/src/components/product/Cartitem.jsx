@@ -5,19 +5,19 @@ import { useNavigate } from 'react-router-dom'
 
 const Cartitem = ({items,handleCartDelete}) => {
     
-
+  console.log("items",items?.items?.title)
   
   return (
     <div className='cart-item-component'>
         <div className="cartimage">
-            <img src={items?.fooditem?.image} alt="" />
+            <img src={items?.items?.image} alt="" />
         </div>
         <div className="cart-item-detail">
-            <p className='title'>{items?.fooditem?.title}</p>
-            <p className='description'>{items?.fooditem?.description}</p>
-            <p className='price'>{items?.fooditem?.price}</p>
+            <p className='title'>{items?.items?.title}</p>
+            <p className='description'>{items?.items?.description}</p>
+            <p className='price'>{items?.items?.price}</p>
             <p className='quantity'>{items?.quantity}</p>
-        <button onClick={()=> handleCartDelete(items?._id)}>delete</button>
+        <button onClick={()=> handleCartDelete(items?.items?._id)}>delete</button>
         </div>
 
 

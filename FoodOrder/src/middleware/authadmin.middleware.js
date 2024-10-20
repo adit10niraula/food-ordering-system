@@ -39,25 +39,26 @@ import jwt from 'jsonwebtoken'
 const adminjwt = AsyncHandler(async(req, res, next)=>{
 
   const authheader = req.headers.authorization
-  console.log("auth", authheader)
+  
+
   
 
   if(!authheader || !authheader.startsWith('Bearer ')){
     throw new ApiError(400, "admin not logged in")
   }
   const token = authheader.split(" ")[1]
-  console.log("token", token)
+ 
 
   try {
     const decode = await jwt.verify(token, process.env.ACCESS_TOKEN )
 
-    console.log("decode", decode)
+    
     if(!decode){
       throw new ApiError(400, "token doesnot match")
     }
 
     const user = await Admin.findById(decode._id)
-    console.log("admin ", user)
+   
     if(!user){
       throw new ApiError(400, "admin not found")
     }

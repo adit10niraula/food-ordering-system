@@ -13,7 +13,8 @@ import { ADMIN_LOGIN_FAIL, ADMIN_LOGIN_REQUEST, ADMIN_LOGIN_SUCCESS,
     ADMIN_USER_FAIL,
     ADMIN_ORDER_FAIL, ADMIN_ORDER_REQUEST, ADMIN_ORDER_SUCCESS,
     ADD_CATEGORY_FAIL, ADD_CATEGORY_REQUEST, ADD_CATEGORY_SUCCESS,
-    DELETE_ORDER_FAIL, DELETE_ORDER_REQUEST,DELETE_ORDER_SUCCESS
+    DELETE_ORDER_FAIL, DELETE_ORDER_REQUEST,DELETE_ORDER_SUCCESS,
+    ORDER_UPDATE_FAIL,ORDER_UPDATE_REQUEST, ORDER_UPDATE_SUCCESS
  } from "../constants/adminConstants";
 
 
@@ -103,12 +104,12 @@ export const foodItemDetailDelete = (id) => async(dispatch)=>{
     }
 }
 
-export const adminAddFoodItem = (title, description, price, category,image)=>async(dispatch)=>{
+export const adminAddFoodItem = (title, description,ingredients, price, category,image)=>async(dispatch)=>{
     dispatch({type:ADMIN_ADDFOODITEM_REQUEST})
 
     try {
         console.log("trying", image)
-        const {data} = await api.post('/api/v1/food/add', {title, description, price, category,image},
+        const {data} = await api.post('/api/v1/food/add', {title, description,ingredients, price, category,image},
            { headers: {
                 'Content-Type': 'multipart/form-data',
             },}
@@ -211,3 +212,21 @@ export const deleteOrder = (id)=>async(dispatch)=>{
 
     }
 }
+
+
+
+
+export const updateOrderStatus = (orderId, status) => async (dispatch) => {
+  try {
+    console.log("tyring")
+    await axios.put(`/api/v1/order/${orderId}/status`, { status });
+    console.log("complete")
+    dispatch({ type: ORDER_UPDATE_SUCCESS });
+    dispatch(adminOrder()); // Refresh the orders
+  } catch (error) {
+    dispatch({
+      type: ORDER_UPDATE_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};

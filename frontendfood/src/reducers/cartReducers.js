@@ -101,13 +101,30 @@ export const createorderReducer = (state={loading:false}, action)=>{
 }
 
 
-export const deleteCartReducer = (state = {loading:false}, action)=>{
-    switch(action.type){
+// export const deleteCartReducer = (state = {loading:false}, action)=>{
+//     switch(action.type){
+//         case DELETE_CART_REQUEST:
+//             return {loading:true}
+//         // case DELETE_CART_SUCCESS:
+//         //     return {loading:false}
+//         case DELETE_CART_FAIL:
+//             return {loading:false, error:action.payload}
+//     }
+// }
+
+export const deleteCartReducer = (state = { loading: false, cartItems: [] }, action) => {
+    switch (action.type) {
         case DELETE_CART_REQUEST:
-            return {loading:true}
-        // case DELETE_CART_SUCCESS:
-        //     return {loading:false}
+            return { ...state, loading: true };
+        case DELETE_CART_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                cartItems: state.cartItems.filter(item => item.items.toString() !== action.payload), // Remove the deleted item
+            };
         case DELETE_CART_FAIL:
-            return {loading:false, error:action.payload}
+            return { ...state, loading: false, error: action.payload };
+        default:
+            return state;
     }
-}
+};

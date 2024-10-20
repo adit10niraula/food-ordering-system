@@ -6,6 +6,7 @@ import ProductList from '../../components/product/ProductList'
 import { getAllCategory } from '../../actions/fooditemAction'
 import { useNavigate } from 'react-router-dom'
 import { addToCart } from '../../actions/cartAction'
+import { addtofavourate } from '../../actions/fooditemAction'
 
 const Products = () => {
     const navigate = useNavigate()
@@ -46,6 +47,18 @@ const Products = () => {
         
     }
 
+
+    const addToFavourate = (id)=>{
+        if(!userInfo){
+          navigate('/login')
+      }else{
+          
+          dispatch(addtofavourate(id))
+          alert("added to cart")
+          navigate('/fav')
+      }
+      }
+
     const displayitem = categoryid ? fooditem && fooditem.filter((item)=> item.category._id === categoryid):
     fooditem && fooditem;
 
@@ -75,7 +88,7 @@ const Products = () => {
         
 
         <div className="all-products">
-            <ProductList fooditem={displayitem} handleAddToCart={handleAddToCart}/>
+            <ProductList fooditem={displayitem} handleAddToCart={handleAddToCart} addToFavourate={addToFavourate}/>
 
 
         </div>

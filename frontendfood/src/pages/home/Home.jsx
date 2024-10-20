@@ -7,6 +7,9 @@ import { specialFoodItems } from '../../actions/fooditemAction'
 import './home.css'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { recommendfavourate } from '../../actions/fooditemAction'
+import { addToCart } from '../../actions/cartAction'
+import { addtofavourate } from '../../actions/fooditemAction'
 
 const Home = () => {
 
@@ -18,6 +21,7 @@ const Home = () => {
   const getuserinfo = useSelector((state)=> state.userLogin)
   const {userInfo} = getuserinfo
   const {fooditem, loading, error } = getfooditem
+  const {recommendfav} = useSelector((state)=> state.recommendfavfood)
 
   const specialfood = useSelector((state)=> state.specialfooditem)
   const {specialitem} = specialfood
@@ -31,14 +35,36 @@ const Home = () => {
   //   navigate('/login')
   // }
 
-  console.log("specialfooditem", specialfooditem)
+  console.log("recomm fav food", recommendfav)
   console.log("fod", fooditem)
 
   useEffect(()=>{
     dispatch(allFooditems())
     dispatch(specialFoodItems())
+    dispatch(recommendfavourate())
 
   },[])
+
+  const handleAddToCart = (id)=>{
+    if(!userInfo){
+    navigate('/login')
+}else{
+    dispatch(addToCart(id))
+    alert("added to cart")
+}
+    
+}
+
+
+const addToFavourate = (id)=>{
+  if(!userInfo){
+    navigate('/login')
+}else{
+    
+    dispatch(addtofavourate(id))
+    alert("added to cart")
+}
+}
   return (
     <UserContainer>
     <div className='home-container'>
@@ -55,10 +81,21 @@ const Home = () => {
         <h1>Today special !!</h1>
         
         <div className="home-fooditems">
-          <ProductList fooditem={specialfooditem}/>
+         
+          <ProductList fooditem={specialfooditem} handleAddToCart={handleAddToCart} addToFavourate={addToFavourate}/>
+
           
         
       </div>
+
+    { recommendfav && recommendfav.length>0 &&
+    <>
+      <h1>Recommendation</h1> 
+      
+      <ProductList fooditem={recommendfav} handleAddToCart={handleAddToCart} addToFavourate={addToFavourate}/>
+
+      </>
+    }
       
     </div>
     </UserContainer>

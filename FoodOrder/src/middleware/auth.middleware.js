@@ -36,23 +36,23 @@ import jwt from 'jsonwebtoken'
 const authjwt = AsyncHandler(async(req, res,next)=>{
 
     const authheader = req.headers.authorization
-    console.log("authheare", authheader)
+    
     if(!authheader || !authheader.startsWith('Bearer ')){
         throw new ApiError(400, "user not logged in")
     }
     const token = authheader.split(" ")[1];
 
-    console.log("token", token)
+  
 
     try{
         const decodeToken = await jwt.verify(token, process.env.ACCESS_TOKEN)
-        console.log("decoded token", decodeToken)
+        
         if(!decodeToken){
             throw new ApiError(400, "error in decoding")
         }
         const user = await User.findById(decodeToken._id)
 
-        console.log("user haha", user)
+      
         req.user = user
         next()
 

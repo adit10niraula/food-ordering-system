@@ -1,7 +1,8 @@
 import { combineReducers,configureStore } from "@reduxjs/toolkit";
 import { userRegisterReducer, userLoginReducer,getCurrenUserReducer,DeleteUserReducer,UserOrderReducer } from "../reducers/userReducers";
-import { fooditemsReducers, fooditemDetailReducer, similarFooditemReducer,
-    specialFoodItemsReducer, getallcategoryreducer } from "../reducers/fooditemReducers";
+import { fooditemsReducers, fooditemDetailReducer, similarFooditemReducer,getfavourateReducer,
+    specialFoodItemsReducer, getallcategoryreducer,addtofavourateReducer,recommendFavReducer,
+rateFooditemReducer } from "../reducers/fooditemReducers";
 import { addToCartReducer, getCartItemsReducer, addOrderPaymentReducer, createorderReducer } from "../reducers/cartReducers";
 import { adminLoginReducer, adminfooditemreducer, adminFoodItemDetailReducer,
     FoodItemDetailDeleteReducer, adminaddfooditemReducer, DisplayUserReducer,editfooditemsReducer,
@@ -23,6 +24,10 @@ const rootReducer = combineReducers({
     similarFooditems: similarFooditemReducer,
     specialfooditem:specialFoodItemsReducer,
     getallcategory:getallcategoryreducer,
+    addtofav:addOrderPaymentReducer,
+    getfav:getfavourateReducer,
+    recommendfavfood: recommendFavReducer,
+    RateFoodItem:rateFooditemReducer,
 
     addtocart:addToCartReducer,
     getCartItems:getCartItemsReducer,

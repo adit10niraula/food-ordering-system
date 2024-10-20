@@ -5,20 +5,25 @@ import { User } from "./user.model.js";
 
 const cartSchema = new Schema({
     
-    fooditem: {
-        type:Schema.Types.ObjectId,
-        ref:FoodItem
+    fooditem: [{
+        items:{type:Schema.Types.ObjectId,
+        ref:FoodItem},
+        quantity:{type:Number, default:1}
     },
+   ],
     user: {
         type:Schema.Types.ObjectId,
         ref:User
     },
-    quantity: {
+    totalPrice: {
         type:Number,
-        default:1,
+       
 
 
     }
+    
+},{
+    timestamps:true
 }) 
 
 

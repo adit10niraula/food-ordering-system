@@ -16,12 +16,16 @@ const Order = () => {
   const {paymentdetail, loading:orderloading, error:ordererror} = orderpayments
   console.log("payment details : ", paymentdetail)
 
-  const totalprice = paymentdetail?.results?.totalPrice 
+  const totalprice = paymentdetail?.totalPrice
+  console.log("totoal price order", totalprice)
   console.log(totalprice)
   const signature = paymentdetail?.signature
   const uuid = paymentdetail?.uuid
 
   const {userInfo} = useSelector((state)=> state.userLogin)
+
+
+  console.log("cartitemds",cartitems)
  
 
   
@@ -50,18 +54,26 @@ const Order = () => {
       {loading && <p>loading...</p>}
       {error && <p>{error}</p>}
       <div className="cart-item-container">
-        {cartitems &&
-        
-          cartitems?.cartitems.map((items) => (
-            <Cartitem items={items} key={items._id} />
-          ))}
+      {cartitems && cartitems?.map(({ _id, fooditem}) =>(
+           <div key={_id} className="cart-item">
+
+
+           
+           <ul>
+               {fooditem && fooditem?.map((item, index) => (
+               <Cartitem items={item} key={index} />
+               ))}
+           </ul>
+           </div>
+
+      ))}
       </div>
 
       <div className="order-payment">
         {ordererror && <p>{ordererror}</p>}
         <h1>make payment</h1>
-        <p>total amount: Rs. {cartitems && cartitems.results.totalPrice} </p>
-        <p>total quantity: {cartitems && cartitems.results.totalQuantity} </p>
+        <p>total amount: Rs. {totalprice} </p>
+       
 
         <div className="payment-form">
           <form

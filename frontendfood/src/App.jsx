@@ -21,6 +21,7 @@ import AdminFoodDetail from './pages/adminpage/AdminFoodDetail'
 import AdminEditFoodItem from './pages/adminpage/AdminEditFoodItem'
 import Profile from './pages/profile/Profile'
 import AddCategory from './pages/adminpage/AddCategory'
+import Favourate from './pages/favourate/Favourate'
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
       <Route path= "/createorder" element={<CreateOrder/>}/>
       <Route path='/product' element={<Products/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/fav' element={<Favourate/>}/>
 
       <Route path= "/admin" element={<Adminpanel/>}/>
       <Route path= "/adminlogin" element={<Adminlogin/>}/>

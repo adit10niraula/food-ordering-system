@@ -1,6 +1,7 @@
 import mongoose, {Schema} from "mongoose";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { FoodItem } from "./foodItem.model.js";
 
 const UserSchema = new Schema({
 
@@ -48,7 +49,22 @@ const UserSchema = new Schema({
     }, 
     refreshToken:{
         type:String
-    }
+    },
+    favourates: [
+        {fooditem: {type:Schema.Types.ObjectId,
+            ref:"FoodItem"},
+
+        addedAt: { type: Date, default: Date.now }
+        }
+    ],
+    rating:[
+        {fooditem:{type:Schema.Types.ObjectId,
+            ref:'FoodItem'
+        },
+        rating: {type:Number, min:1, max:5}
+        }
+
+    ]
 
 },{timestamps:true})
 
