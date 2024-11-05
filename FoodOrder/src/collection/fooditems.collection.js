@@ -8,7 +8,7 @@ import { Category } from "../models/category.model.js";
 import { User } from "../models/user.model.js";
 
 const addFoodItem = AsyncHandler(async (req, res) => {
-  const { title, description, ingredients, price, category } = req.body;
+  const { title, description, cusine, price, category } = req.body;
   console.log("reqbod", req.body);
   console.log("localimage", req.file);
 
@@ -20,7 +20,7 @@ const addFoodItem = AsyncHandler(async (req, res) => {
     throw new ApiError(400, "price must be greater 0");
   }
 
-  if (!title || !description || !price || !category) {
+  if (!title || !description || !price || !category || !cusine) {
     throw new ApiError(400, " all fields are required");
   }
   if (title.length < 3 || description.length < 3 || category.length < 3) {
@@ -59,7 +59,7 @@ const addFoodItem = AsyncHandler(async (req, res) => {
   const uploadfooditem = await FoodItem.create({
     title,
     description,
-    ingredients,
+    cusine,
     price,
     category: categoryname._id,
     image: image.url,
@@ -172,7 +172,7 @@ const getSingleItem = AsyncHandler(async (req, res) => {
 
 const updateFoodItems = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { title, description, price, category } = req.body;
+  const { title, description,cusine, price, category } = req.body;
 
   if (!isValidObjectId(id)) {
     throw new ApiError(400, "given id is not a valid object is");
@@ -210,6 +210,7 @@ const updateFoodItems = AsyncHandler(async (req, res) => {
       $set: {
         title: title || fooditems.title,
         description: description || fooditems.description,
+        cusine: cusine || fooditems.cusine,
         price: price || fooditems.price,
         category: categoryname?._id || fooditems?.category,
         image: image?.url || fooditems.image,
@@ -407,7 +408,64 @@ const getFavourate = AsyncHandler(async (req, res) => {
   });
   
 
-const recommendFav = AsyncHandler(async(req, res)=>{
+// const recommendFav = AsyncHandler(async(req, res)=>{
+//   try {
+//     const user = req.user._id;
+
+//     if (!user) {
+//       throw new ApiError(400, "User must be logged in");
+//     }
+
+//     // Fetch user with favorites
+//     const userWithFavourites = await User.findById(user)
+//       .populate({
+//         path: "favourates.fooditem",
+//         model: "FoodItem"
+//       });
+
+//     if (!userWithFavourites) {
+//       throw new ApiError(404, "User not found");
+//     }
+
+//     // Sort favorites by 'addedAt' in descending order to get the most recent one
+//     userWithFavourites.favourates.sort((a, b) => {
+//       return new Date(b.addedAt) - new Date(a.addedAt);
+//     });
+
+//     // Extract the most recent favorite food item
+//     const mostRecentFavourite = userWithFavourites.favourates[0]?.fooditem;
+
+//     if (!mostRecentFavourite) {
+//       return res.status(200).json(new ApiResponse(200, [], "No favourites found"));
+//     }
+
+//     // Recommend similar food items based on the category of the most recent favorite
+//     const recommendedFoodItems = await FoodItem.find({
+//       _id: { $ne: mostRecentFavourite._id }, // Exclude the most recent favourite from recommendations
+//       category: mostRecentFavourite.category, // Match food items with the same category
+//     }).limit(5); // Limit to 5 recommended items (you can change this as needed)
+
+//     // Filter sensitive fields
+//     const { password, refreshToken, ...userData } = userWithFavourites.toObject();
+
+//     return res.status(200).json(new ApiResponse(200, 
+//     //   {
+//     //   favourites: userData.favourates,
+//     //   mostRecentFavourite,
+//     //   recommendedFoodItems,
+//     // }
+//     recommendedFoodItems
+//     , "Favourite food items fetched successfully with recommendations"));
+    
+//   } catch (error) {
+//     console.error("Error fetching favourites:", error);
+//     return res
+//       .status(500)
+//       .json(new ApiResponse(500, null, "Internal Server Error"));
+//   }
+// })
+
+const recommendFav = AsyncHandler(async (req, res) => {
   try {
     const user = req.user._id;
 
@@ -438,31 +496,28 @@ const recommendFav = AsyncHandler(async(req, res)=>{
       return res.status(200).json(new ApiResponse(200, [], "No favourites found"));
     }
 
-    // Recommend similar food items based on the category of the most recent favorite
+    // Recommend similar food items based on the cuisine of the most recent favorite
     const recommendedFoodItems = await FoodItem.find({
       _id: { $ne: mostRecentFavourite._id }, // Exclude the most recent favourite from recommendations
-      category: mostRecentFavourite.category, // Match food items with the same category
+      cusine: mostRecentFavourite.cusine, // Match food items with the same cuisine
     }).limit(5); // Limit to 5 recommended items (you can change this as needed)
 
     // Filter sensitive fields
     const { password, refreshToken, ...userData } = userWithFavourites.toObject();
 
-    return res.status(200).json(new ApiResponse(200, 
-    //   {
-    //   favourites: userData.favourates,
-    //   mostRecentFavourite,
-    //   recommendedFoodItems,
-    // }
-    recommendedFoodItems
-    , "Favourite food items fetched successfully with recommendations"));
-    
+    return res.status(200).json(new ApiResponse(200,
+      recommendedFoodItems,
+      "Favourite food items fetched successfully with recommendations"
+    ));
+
   } catch (error) {
     console.error("Error fetching favourites:", error);
     return res
       .status(500)
       .json(new ApiResponse(500, null, "Internal Server Error"));
   }
-})
+});
+
 
 
 const addRating = AsyncHandler(async(req, res)=>{

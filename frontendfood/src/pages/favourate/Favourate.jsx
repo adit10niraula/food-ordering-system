@@ -52,6 +52,12 @@ const Favourate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const { getfav } = useSelector((state) => state.getfav);
+  const {userInfo} = useSelector((state)=> state.userLogin)
+
+  if(!userInfo){
+    navigate('/login')
+}
+
 
   useEffect(() => {
     dispatch(getfavourate());

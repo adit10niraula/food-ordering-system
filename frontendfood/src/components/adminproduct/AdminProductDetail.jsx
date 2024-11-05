@@ -24,6 +24,7 @@ const AdminProductDetail = ({fooditem,  handleEdit, handledelete,adminData}) => 
                 <div className="detail-desc">
                     <p>{fooditem?.title}</p>
                     <p>{fooditem?.description}</p>
+                    <p>{fooditem?.cusine}</p>
                     <p>{fooditem?.category?.name}</p>
                     <p>{fooditem?.price}</p>
                     <button onClick={()=>handleEdit(fooditem?._id)}>edit</button> <button onClick={()=>handledelete(fooditem?._id)}>delete</button>

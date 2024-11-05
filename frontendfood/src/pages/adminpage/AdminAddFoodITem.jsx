@@ -12,6 +12,7 @@ const AdminAddFoodITem = () => {
   const [description, setdescription] = useState("")
   const [price, setprice] = useState("")
   const [ingredients, setingredients] = useState("")
+  const [cusine, setcusine] = useState("")
   const [categorys,setcategory] = useState("")
   const [image,setimage] = useState("")
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ const AdminAddFoodITem = () => {
     e.preventDefault()
    
     const ingredientsArray = ingredients.split(',').map((ing) => ing.trim());
-    await dispatch(adminAddFoodItem(title, description,ingredientsArray,price,categorys,image))
+    await dispatch(adminAddFoodItem(title, description,cusine,price,categorys,image))
 
     
 
@@ -82,8 +83,12 @@ const AdminAddFoodITem = () => {
       <input type="text" name="description" id="description" value={description} onChange={(e)=>setdescription(e.target.value)} />
       </div>
       <div>
-      <label htmlFor="ingredients">ingredients</label> <br />
+      {/* <label htmlFor="ingredients">ingredients</label> <br />
       <input type="text" name="ingredients" id="ingredients" placeholder='"e.g., potato, egg, rice"' value={ingredients} onChange={(e)=>setingredients(e.target.value)} />
+       */}
+
+      <label htmlFor="ingredients">cusine</label> <br />
+      <input type="text" name="ingredients" id="ingredients" placeholder='"e.g., italian , american, indian"' value={cusine} onChange={(e)=>setcusine(e.target.value)} />
       
       </div>
       <div>

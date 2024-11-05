@@ -104,12 +104,12 @@ export const foodItemDetailDelete = (id) => async(dispatch)=>{
     }
 }
 
-export const adminAddFoodItem = (title, description,ingredients, price, category,image)=>async(dispatch)=>{
+export const adminAddFoodItem = (title, description,cusine, price, category,image)=>async(dispatch)=>{
     dispatch({type:ADMIN_ADDFOODITEM_REQUEST})
 
     try {
         console.log("trying", image)
-        const {data} = await api.post('/api/v1/food/add', {title, description,ingredients, price, category,image},
+        const {data} = await api.post('/api/v1/food/add', {title, description,cusine, price, category,image},
            { headers: {
                 'Content-Type': 'multipart/form-data',
             },}

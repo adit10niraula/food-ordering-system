@@ -36,6 +36,10 @@ const foodItemSchema = new Schema({
     ingredients:{
         type:[String]
     },
+    cusine: {
+        type:String
+
+    },
     rating:[
         {user:{type:Schema.Types.ObjectId, ref:"User"},
     rating:{type:Number, min:1, max:5}}

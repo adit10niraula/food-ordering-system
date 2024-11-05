@@ -25,10 +25,11 @@ const ProductDetail = ({fooditem, handleAddToCart}) => {
                 <img src={fooditem?.image} alt="" />
                 </div>
                 <div className="detail-desc">
-                    <p className='title'>{fooditem?.title}</p>
-                    <p className='description'>{fooditem?.description}</p>
-                    <p className='category'>{fooditem?.category?.name}</p>
-                    <p className='price'>Rs. {fooditem?.price}</p>
+                    <p className='title'>title: {fooditem?.title}</p>
+                    <p className='description'>description: {fooditem?.description}</p>
+                    <p className='category'>category: {fooditem?.category?.name}</p>
+                    <p className='cusine'>cusine:  {fooditem?.cusine}</p>
+                    <p className='price'>price: Rs. {fooditem?.price}</p>
                     <p className='rating'>rating:  {avgrating.toFixed(1)}</p>
                     <p className='rating'>rating by:  {fooditem?.rating?.length} people</p>
                     

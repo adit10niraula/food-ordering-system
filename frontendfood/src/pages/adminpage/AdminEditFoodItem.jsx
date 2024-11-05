@@ -14,6 +14,7 @@ const AdminEditFoodItem = () => {
     const [description, setdescription] = useState("")
     const [price, setprice] = useState("")
     const [categorys,setcategory] = useState("")
+    const [cusine, setcusine] = useState("")
     const [image,setimage] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -66,6 +67,7 @@ const AdminEditFoodItem = () => {
       const formdata = new FormData()
       formdata.append("title", title)
       formdata.append("description", description)
+      formdata.append('cusine',cusine)
       formdata.append('price', price)
       formdata.append("category", categorys)
       if(image){
@@ -123,6 +125,10 @@ const AdminEditFoodItem = () => {
   <label htmlFor="description">description</label><br />
   <input type="text" name="description" id="description" value={description} onChange={(e)=>setdescription(e.target.value)} />
   </div>
+    <div>
+  <label htmlFor="ingredients">cusine</label> <br />
+      <input type="text" name="ingredients" id="ingredients" placeholder='"e.g., italian , american, indian"' value={cusine} onChange={(e)=>setcusine(e.target.value)} />
+      </div>
   <div>
   <label htmlFor="price">price</label> <br />
   <input type="number" name="price" id="price" value={price} onChange={(e)=>setprice(e.target.value)} />
